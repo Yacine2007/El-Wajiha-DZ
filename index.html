@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Wajiha DZ - المنصة العامة للتصويت</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- الخطوط العربية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #C8102E;
+            --light-green: #E6F2EC;
+            --light-red: #F9E6E9;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: none;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .lang-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* محتوى الصفحة */
+        .main-content {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--gray-color);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* قسم التصويت */
+        .voting-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .voting-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .voting-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-title {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-green);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 102, 51, 0.1);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #005226;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* عرض التصاميم */
+        .designs-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .designs-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .design-item {
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .design-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .design-item.selected {
+            border-color: var(--primary-color);
+            background-color: var(--light-green);
+        }
+
+        .design-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .design-title {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .design-engineer {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .design-description {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .votes-count {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .vote-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .vote-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* معلومات المنصة */
+        .info-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 40px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .info-title {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        /* رسائل */
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: var(--light-green);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .alert-error {
+            background-color: var(--light-red);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        /* تذييل الصفحة */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--gray-color);
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .creator-info {
+            background-color: var(--light-green);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .creator-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .voting-form, .designs-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="favicon.png" alt="El Wajiha DZ Logo" class="logo-img">
+                <h1>El Wajiha <span>DZ</span></h1>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="active">الرئيسية</a>
+                <a href="municipality.html">لوحة البلدية</a>
+                <a href="engineer.html">لوحة المهندس</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ar">العربية</button>
+                    <button class="lang-btn" data-lang="fr">Français</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content container">
+        <!-- رأس الصفحة -->
+        <div class="page-header">
+            <h1 class="page-title" id="main-title">منصة El Wajiha DZ للتصويت على التصاميم</h1>
+            <p class="page-subtitle" id="main-subtitle">شارك في اختيار أفضل التصاميم العمرانية لمشاريع بلديتك. أدخل بياناتك واختر التصميم المفضل لديك</p>
+        </div>
+
+        <!-- رسالة تأكيد -->
+        <div class="alert alert-success" id="success-message">
+            <i class="fas fa-check-circle"></i> <span id="success-text">تم تسجيل تصويتك بنجاح! شكراً لمشاركتك</span>
+        </div>
+
+        <div class="alert alert-error" id="error-message">
+            <i class="fas fa-exclamation-circle"></i> <span id="error-text">حدث خطأ. يرجى التأكد من ملء جميع الحقول واختيار تصميم</span>
+        </div>
+
+        <!-- قسم التصويت -->
+        <div class="voting-section">
+            <!-- نموذج التصويت -->
+            <div class="voting-form">
+                <h2 class="form-title" id="form-title">نموذج التصويت</h2>
+                <form id="voting-form">
+                    <div class="form-group">
+                        <label for="citizen-name" id="name-label">الاسم الكامل</label>
+                        <input type="text" id="citizen-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cadastral-number" id="cadastral-label">رقم الدفتر العقاري</label>
+                        <input type="text" id="cadastral-number" class="form-control" required>
+                        <small style="color: var(--gray-color); display: block; margin-top: 5px;" id="cadastral-note">يجب أن يكون الرقم العقاري صحيحاً للتحقق من أهلية التصويت</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="selected-design" id="design-label">التصميم المختار</label>
+                        <input type="text" id="selected-design" class="form-control" readonly placeholder="اختر تصميم من القائمة على اليمين">
+                    </div>
+                    
+                    <input type="hidden" id="design-id">
+                    
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-vote">
+                        <i class="fas fa-vote-yea"></i> <span id="vote-text">تسجيل التصويت</span>
+                    </button>
+                </form>
+                
+                <!-- معلومات مهمة -->
+                <div style="margin-top: 25px; padding: 15px; background-color: #f8f9fa; border-radius: var(--border-radius);">
+                    <h4 style="color: var(--primary-color); margin-bottom: 10px;" id="important-title">معلومات مهمة:</h4>
+                    <ul style="color: var(--gray-color); padding-right: 15px;" id="important-list">
+                        <li>يمكن لكل مواطن التصويت مرة واحدة فقط</li>
+                        <li>يجب أن يكون الرقم العقاري مسجلاً في قاعدة بيانات البلدية</li>
+                        <li>سيتم التحقق من هوية المصوت قبل احتساب التصويت</li>
+                        <li>آخر موعد للتصويت: نهاية الشهر الحالي</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- قائمة التصاميم -->
+            <div class="designs-container">
+                <h2 class="form-title" id="designs-title">التصاميم المعروضة للتصويت</h2>
+                <div class="designs-list" id="designs-list">
+                    <!-- سيتم تعبئة التصاميم ديناميكياً -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- معلومات المنصة -->
+        <div class="info-section">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 20px;" id="about-title">عن منصة El Wajiha DZ</h2>
+            <p style="text-align: center; color: var(--gray-color); max-width: 800px; margin: 0 auto 30px;" id="about-description">
+                منصة رقمية جزائرية تهدف إلى إشراك المواطنين في عملية اتخاذ القرارات المتعلقة بالمشاريع العمرانية والتخطيط الحضري في بلدياتهم. تتيح المنصة للمواطنين التصويت على التصاميم المقترحة والتعبير عن آرائهم.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="info-title" id="feature1-title">مشاركة مجتمعية</h3>
+                    <p id="feature1-desc">إشراك المواطنين في صنع القرارات البلدية المتعلقة بالمشاريع العمرانية</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <h3 class="info-title" id="feature2-title">عرض التصاميم</h3>
+                    <p id="feature2-desc">عرض أفضل التصاميم المعمارية والعمرانية المقترحة من قبل المهندسين المعتمدين</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="info-title" id="feature3-title">تحقق آمن</h3>
+                    <p id="feature3-desc">نظام تحقق آمن باستخدام الأرقام العقارية لضمان مصداقية التصويت</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="info-title" id="feature4-title">نتائج فورية</h3>
+                    <p id="feature4-desc">عرض نتائج التصويت بشكل فوري وشفاف لجميع المشاركين</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- معلومات المبدع -->
+        <div class="creator-info">
+            <h4 id="creator-title">معلومات المبادرة</h4>
+            <p id="creator-info">فكرة السيد بلمواز طاهر عبد الإله</p>
+            <p id="creator-uni">جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2</p>
+            <p id="creator-contact">للتواصل: هاتف: 0556963239 - بريد إلكتروني: Abdelilah.belmouaz@gmail.com</p>
+            <p id="copyright-year">© جميع الحقوق محفوظة 2023-<span id="current-year"></span> El Wajiha DZ</p>
+        </div>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 id="footer-about">عن المنصة</h3>
+                    <p id="footer-about-text">منصة El Wajiha DZ هي مبادرة وطنية تهدف إلى تعزيز المشاركة المجتمعية في التخطيط العمراني واتخاذ القرارات البلدية.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 id="footer-links">روابط سريعة</h3>
+                    <p><a href="index.html" id="footer-home">الرئيسية</a></p>
+                    <p><a href="municipality.html" id="footer-municipality">لوحة البلدية</a></p>
+                    <p><a href="engineer.html" id="footer-engineer">لوحة المهندس</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 id="footer-contact">اتصل بنا</h3>
+                    <p><i class="fas fa-phone"></i> 0556963239</p>
+                    <p><i class="fas fa-envelope"></i> Abdelilah.belmouaz@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> جامعة ابن خلدون، تيارت، الجزائر</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p id="footer-copyright">جميع الحقوق محفوظة &copy; <span id="footer-year"></span> El Wajiha DZ - منصة المشاركة المجتمعية في التخطيط العمراني</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // حفظ اللغة المختارة في جميع الصفحات
+        function saveLanguage(lang) {
+            localStorage.setItem('elwajiha_language', lang);
+        }
+        
+        // تحميل اللغة المحفوظة
+        function loadLanguage() {
+            return localStorage.getItem('elwajiha_language') || 'ar';
+        }
+        
+        // نص الترجمة الكامل
+        const translations = {
+            ar: {
+                // شريط التنقل
+                home: "الرئيسية",
+                municipality: "لوحة البلدية",
+                engineer: "لوحة المهندس",
+                
+                // الصفحة الرئيسية
+                mainTitle: "منصة El Wajiha DZ للتصويت على التصاميم",
+                mainSubtitle: "شارك في اختيار أفضل التصاميم العمرانية لمشاريع بلديتك. أدخل بياناتك واختر التصميم المفضل لديك",
+                formTitle: "نموذج التصويت",
+                nameLabel: "الاسم الكامل",
+                cadastralLabel: "رقم الدفتر العقاري",
+                cadastralNote: "يجب أن يكون الرقم العقاري صحيحاً للتحقق من أهلية التصويت",
+                designLabel: "التصميم المختار",
+                voteText: "تسجيل التصويت",
+                importantTitle: "معلومات مهمة:",
+                importantList: [
+                    "يمكن لكل مواطن التصويت مرة واحدة فقط",
+                    "يجب أن يكون الرقم العقاري مسجلاً في قاعدة بيانات البلدية",
+                    "سيتم التحقق من هوية المصوت قبل احتساب التصويت",
+                    "آخر موعد للتصويت: نهاية الشهر الحالي"
+                ],
+                designsTitle: "التصاميم المعروضة للتصويت",
+                selectDesign: "اختر هذا التصميم",
+                votes: "صوت",
+                aboutTitle: "عن منصة El Wajiha DZ",
+                aboutDescription: "منصة رقمية جزائرية تهدف إلى إشراك المواطنين في عملية اتخاذ القرارات المتعلقة بالمشاريع العمرانية والتخطيط الحضري في بلدياتهم. تتيح المنصة للمواطنين التصويت على التصاميم المقترحة والتعبير عن آرائهم.",
+                feature1Title: "مشاركة مجتمعية",
+                feature1Desc: "إشراك المواطنين في صنع القرارات البلدية المتعلقة بالمشاريع العمرانية",
+                feature2Title: "عرض التصاميم",
+                feature2Desc: "عرض أفضل التصاميم المعمارية والعمرانية المقترحة من قبل المهندسين المعتمدين",
+                feature3Title: "تحقق آمن",
+                feature3Desc: "نظام تحقق آمن باستخدام الأرقام العقارية لضمان مصداقية التصويت",
+                feature4Title: "نتائج فورية",
+                feature4Desc: "عرض نتائج التصويت بشكل فوري وشفاف لجميع المشاركين",
+                creatorTitle: "معلومات المبادرة",
+                creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
+                creatorUni: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
+                creatorContact: "للتواصل: هاتف: 0556963239 - بريد إلكتروني: Abdelilah.belmouaz@gmail.com",
+                successText: "تم تسجيل تصويتك بنجاح! شكراً لمشاركتك",
+                errorText: "حدث خطأ. يرجى التأكد من ملء جميع الحقول واختيار تصميم",
+                footerAbout: "عن المنصة",
+                footerAboutText: "منصة El Wajiha DZ هي مبادرة وطنية تهدف إلى تعزيز المشاركة المجتمعية في التخطيط العمراني واتخاذ القرارات البلدية.",
+                footerLinks: "روابط سريعة",
+                footerHome: "الرئيسية",
+                footerMunicipality: "لوحة البلدية",
+                footerEngineer: "لوحة المهندس",
+                footerContact: "اتصل بنا",
+                footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - منصة المشاركة المجتمعية في التخطيط العمراني"
+            },
+            fr: {
+                // شريط التنقل
+                home: "Accueil",
+                municipality: "Tableau Municipal",
+                engineer: "Tableau Ingénieur",
+                
+                // الصفحة الرئيسية
+                mainTitle: "Plateforme El Wajiha DZ pour voter sur les designs",
+                mainSubtitle: "Participez au choix des meilleurs designs urbains pour les projets de votre municipalité. Entrez vos informations et choisissez votre design préféré",
+                formTitle: "Formulaire de vote",
+                nameLabel: "Nom complet",
+                cadastralLabel: "Numéro de registre foncier",
+                cadastralNote: "Le numéro cadastral doit être valide pour vérifier l'éligibilité au vote",
+                designLabel: "Design sélectionné",
+                voteText: "Enregistrer le vote",
+                importantTitle: "Informations importantes:",
+                importantList: [
+                    "Chaque citoyen ne peut voter qu'une seule fois",
+                    "Le numéro cadastral doit être enregistré dans la base de données de la municipalité",
+                    "L'identité de l'électeur sera vérifiée avant le comptage du vote",
+                    "Date limite de vote: fin du mois en cours"
+                ],
+                designsTitle: "Designs proposés au vote",
+                selectDesign: "Sélectionner ce design",
+                votes: "votes",
+                aboutTitle: "À propos de la plateforme El Wajiha DZ",
+                aboutDescription: "Plateforme numérique algérienne visant à impliquer les citoyens dans le processus de prise de décision concernant les projets urbains et la planification urbaine dans leurs municipalités. La plateforme permet aux citoyens de voter sur les designs proposés et d'exprimer leurs opinions.",
+                feature1Title: "Participation communautaire",
+                feature1Desc: "Impliquer les citoyens dans la prise de décisions municipales concernant les projets urbains",
+                feature2Title: "Présentation des designs",
+                feature2Desc: "Présentation des meilleurs designs architecturaux et urbains proposés par des ingénieurs agréés",
+                feature3Title: "Vérification sécurisée",
+                feature3Desc: "Système de vérification sécurisé utilisant les numéros cadastraux pour garantir la crédibilité du vote",
+                feature4Title: "Résultats instantanés",
+                feature4Desc: "Affichage des résultats du vote de manière instantanée et transparente pour tous les participants",
+                creatorTitle: "Informations sur l'initiative",
+                creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
+                creatorUni: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
+                creatorContact: "Contact: Tél: 0556963239 - Email: Abdelilah.belmouaz@gmail.com",
+                successText: "Votre vote a été enregistré avec succès! Merci pour votre participation",
+                errorText: "Une erreur s'est produite. Veuillez vérifier que tous les champs sont remplis et qu'un design est sélectionné",
+                footerAbout: "À propos de la plateforme",
+                footerAboutText: "El Wajiha DZ est une initiative nationale visant à renforcer la participation communautaire dans la planification urbaine et la prise de décisions municipales.",
+                footerLinks: "Liens rapides",
+                footerHome: "Accueil",
+                footerMunicipality: "Tableau Municipal",
+                footerEngineer: "Tableau Ingénieur",
+                footerContact: "Contactez-nous",
+                footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Plateforme de participation communautaire à l'urbanisme"
+            }
+        };
+        
+        // بيانات التصاميم
+        const designs = [
+            {
+                id: 1,
+                title: "تصميم حديقة عامة في بلدية الجزائر الوسطى",
+                title_fr: "Design de jardin public dans la municipalité d'Alger Centre",
+                engineer: "المهندس أحمد بوعافية",
+                engineer_fr: "Ingénieur Ahmed Bouafia",
+                votes: 125,
+                date: "2023-10-15",
+                description: "تصميم حديث لحديقة عامة تتضمن مساحات خضراء ومناطق لعب للأطفال وممرات للمشاة.",
+                description_fr: "Design moderne d'un jardin public comprenant des espaces verts, des aires de jeux pour enfants et des sentiers piétonniers."
+            },
+            {
+                id: 2,
+                title: "تصميم ساحة ترفيهية في القبة",
+                title_fr: "Design d'une place de loisirs à El Qobba",
+                engineer: "المهندسة ليلى قاسمي",
+                engineer_fr: "Ingénieure Leïla Kassimi",
+                votes: 89,
+                date: "2023-10-10",
+                description: "ساحة ترفيهية تحتوي على مسرح مفتوح ومقاهي ومناطق استراحة للعائلات.",
+                description_fr: "Place de loisirs comprenant un théâtre en plein air, des cafés et des zones de détente pour les familles."
+            },
+            {
+                id: 3,
+                title: "تصميم مجمع رياضي في باب الزوار",
+                title_fr: "Design d'un complexe sportif à Bab Ezzouar",
+                engineer: "المهندس خالد مرزوق",
+                engineer_fr: "Ingénieur Khaled Merzouk",
+                votes: 203,
+                date: "2023-10-05",
+                description: "مجمع رياضي متكامل يتضمن ملعب كرة قدم وصالة مغطاة ومسبح أولمبي.",
+                description_fr: "Complexe sportif intégré comprenant un terrain de football, un hall couvert et une piscine olympique."
+            },
+            {
+                id: 4,
+                title: "تصميم مكتبة بلدية في الحراش",
+                title_fr: "Design d'une bibliothèque municipale à El Harrach",
+                engineer: "المهندسة سارة طالب",
+                engineer_fr: "Ingénieure Sara Taleb",
+                votes: 67,
+                date: "2023-09-28",
+                description: "مكتبة عصرية تضم قاعات للمطالعة ومركزاً رقمياً ومساحات للندوات.",
+                description_fr: "Bibliothèque moderne comprenant des salles de lecture, un centre numérique et des espaces pour des conférences."
+            }
+        ];
+        
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // تعيين اللغة المحفوظة
+            const savedLang = loadLanguage();
+            currentLang = savedLang;
+            
+            // تحديث أزرار اللغة
+            updateLanguageButtons();
+            
+            // تعيين السنة الحالية
+            const currentYear = new Date().getFullYear();
+            document.getElementById('current-year').textContent = currentYear;
+            document.getElementById('footer-year').textContent = currentYear;
+            
+            // تطبيق اللغة
+            applyLanguage();
+            
+            // تحميل التصاميم
+            loadDesigns();
+            
+            // إضافة مستمعي الأحداث
+            setupEventListeners();
+        });
+        
+        // تحديث أزرار اللغة
+        function updateLanguageButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const lang = btn.getAttribute('data-lang');
+                btn.classList.toggle('active', lang === currentLang);
+            });
+        }
+        
+        // تطبيق اللغة على جميع النصوص
+        function applyLanguage() {
+            const t = translations[currentLang];
+            
+            // تحديث النصوص الرئيسية
+            document.getElementById('main-title').textContent = t.mainTitle;
+            document.getElementById('main-subtitle').textContent = t.mainSubtitle;
+            document.getElementById('form-title').textContent = t.formTitle;
+            document.getElementById('name-label').textContent = t.nameLabel;
+            document.getElementById('cadastral-label').textContent = t.cadastralLabel;
+            document.getElementById('cadastral-note').textContent = t.cadastralNote;
+            document.getElementById('design-label').textContent = t.designLabel;
+            document.getElementById('vote-text').textContent = t.voteText;
+            document.getElementById('important-title').textContent = t.importantTitle;
+            document.getElementById('designs-title').textContent = t.designsTitle;
+            document.getElementById('about-title').textContent = t.aboutTitle;
+            document.getElementById('about-description').textContent = t.aboutDescription;
+            document.getElementById('feature1-title').textContent = t.feature1Title;
+            document.getElementById('feature1-desc').textContent = t.feature1Desc;
+            document.getElementById('feature2-title').textContent = t.feature2Title;
+            document.getElementById('feature2-desc').textContent = t.feature2Desc;
+            document.getElementById('feature3-title').textContent = t.feature3Title;
+            document.getElementById('feature3-desc').textContent = t.feature3Desc;
+            document.getElementById('feature4-title').textContent = t.feature4Title;
+            document.getElementById('feature4-desc').textContent = t.feature4Desc;
+            document.getElementById('creator-title').textContent = t.creatorTitle;
+            document.getElementById('creator-info').textContent = t.creatorInfo;
+            document.getElementById('creator-uni').textContent = t.creatorUni;
+            document.getElementById('creator-contact').textContent = t.creatorContact;
+            document.getElementById('success-text').textContent = t.successText;
+            document.getElementById('error-text').textContent = t.errorText;
+            document.getElementById('footer-about').textContent = t.footerAbout;
+            document.getElementById('footer-about-text').textContent = t.footerAboutText;
+            document.getElementById('footer-links').textContent = t.footerLinks;
+            document.getElementById('footer-home').textContent = t.footerHome;
+            document.getElementById('footer-municipality').textContent = t.footerMunicipality;
+            document.getElementById('footer-engineer').textContent = t.footerEngineer;
+            document.getElementById('footer-contact').textContent = t.footerContact;
+            
+            // تحديث القائمة المهمة
+            const importantList = document.getElementById('important-list');
+            importantList.innerHTML = '';
+            t.importantList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                importantList.appendChild(li);
+            });
+            
+            // تحديث روابط التنقل
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                if (link.textContent.includes('الرئيسية') || link.textContent.includes('Accueil')) {
+                    link.textContent = t.home;
+                } else if (link.textContent.includes('البلدية') || link.textContent.includes('Municipal')) {
+                    link.textContent = t.municipality;
+                } else if (link.textContent.includes('المهندس') || link.textContent.includes('Ingénieur')) {
+                    link.textContent = t.engineer;
+                }
+            });
+            
+            // تحديث حقوق النشر
+            updateFooterCopyright();
+            
+            // إعادة تحميل التصاميم باللغة الجديدة
+            loadDesigns();
+        }
+        
+        // تحديث حقوق النشر
+        function updateFooterCopyright() {
+            const t = translations[currentLang];
+            const year = new Date().getFullYear();
+            const copyrightText = t.footerCopyright.replace('YEAR', year);
+            document.getElementById('footer-copyright').textContent = copyrightText;
+        }
+        
+        // تحميل التصاميم
+        function loadDesigns() {
+            const designsList = document.getElementById('designs-list');
+            designsList.innerHTML = '';
+            
+            designs.forEach(design => {
+                const designItem = document.createElement('div');
+                designItem.className = 'design-item';
+                designItem.setAttribute('data-id', design.id);
+                
+                // اختيار النص بناءً على اللغة
+                const title = currentLang === 'ar' ? design.title : design.title_fr;
+                const engineer = currentLang === 'ar' ? design.engineer : design.engineer_fr;
+                const description = currentLang === 'ar' ? design.description : design.description_fr;
+                const selectText = currentLang === 'ar' ? 'اختر هذا التصميم' : 'Sélectionner ce design';
+                const votesText = currentLang === 'ar' ? 'صوت' : 'votes';
+                
+                designItem.innerHTML = `
+                    <div class="design-header">
+                        <h3 class="design-title">${title}</h3>
+                        <span class="design-engineer">${engineer}</span>
+                    </div>
+                    <p class="design-description">${description}</p>
+                    <div class="votes-count">
+                        <span><i class="fas fa-calendar-alt"></i> ${design.date}</span>
+                        <span><i class="fas fa-vote-yea"></i> ${design.votes} ${votesText}</span>
+                        <button class="vote-btn select-design-btn">${selectText}</button>
+                    </div>
+                `;
+                
+                designsList.appendChild(designItem);
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار الاختيار
+            document.querySelectorAll('.select-design-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const designItem = this.closest('.design-item');
+                    const designId = designItem.getAttribute('data-id');
+                    
+                    // إزالة التحديد من جميع العناصر
+                    document.querySelectorAll('.design-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    
+                    // تحديد العنصر الحالي
+                    designItem.classList.add('selected');
+                    
+                    // تعيين القيم في النموذج
+                    const designTitle = designItem.querySelector('.design-title').textContent;
+                    document.getElementById('selected-design').value = designTitle;
+                    document.getElementById('design-id').value = designId;
+                });
+            });
+        }
+        
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // أزرار تغيير اللغة
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    currentLang = lang;
+                    saveLanguage(lang);
+                    updateLanguageButtons();
+                    applyLanguage();
+                });
+            });
+            
+            // نموذج التصويت
+            document.getElementById('voting-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('citizen-name').value.trim();
+                const cadastral = document.getElementById('cadastral-number').value.trim();
+                const designId = document.getElementById('design-id').value;
+                
+                if (!name || !cadastral || !designId) {
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('success-message').style.display = 'none';
+                    return;
+                }
+                
+                // تخزين التصويت محلياً
+                const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+                votes.push({
+                    name: name,
+                    cadastral: cadastral,
+                    designId: designId,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                localStorage.setItem('elwajiha_votes', JSON.stringify(votes));
+                
+                // إظهار رسالة النجاح
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('error-message').style.display = 'none';
+                
+                // إعادة تعيين النموذج
+                this.reset();
+                document.getElementById('design-id').value = '';
+                document.querySelectorAll('.design-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                // تحديث عدد الأصوات
+                const designIndex = designs.findIndex(d => d.id == designId);
+                if (designIndex !== -1) {
+                    designs[designIndex].votes++;
+                    loadDesigns();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

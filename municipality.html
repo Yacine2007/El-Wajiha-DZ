@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Wajiha DZ - لوحة تحكم البلدية</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- الخطوط العربية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #C8102E;
+            --light-green: #E6F2EC;
+            --light-red: #F9E6E9;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* شاشة تسجيل الدخول */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .login-title {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: var(--gray-color);
+            margin-bottom: 30px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #005226;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #a80d26;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: none;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-type {
+            background-color: var(--light-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background-color: var(--light-red);
+            color: var(--secondary-color);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: none;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .lang-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            padding: 30px 0;
+            display: none;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--gray-color);
+            font-size: 1rem;
+        }
+
+        /* علامات التبويب */
+        .dashboard-tabs {
+            display: flex;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            min-width: 150px;
+        }
+
+        .tab-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* الجداول */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .edit-btn {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* واجهة المحادثة */
+        .chat-container {
+            display: flex;
+            height: 500px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .chat-sidebar {
+            width: 30%;
+            background-color: #f8f9fa;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .chat-main {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: white;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            max-width: 80%;
+        }
+
+        .message.sent {
+            background-color: var(--light-green);
+            margin-right: auto;
+            border-right: 3px solid var(--primary-color);
+        }
+
+        .message.received {
+            background-color: #f0f0f0;
+            margin-left: auto;
+            border-left: 3px solid var(--gray-color);
+        }
+
+        .message-time {
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            padding: 15px;
+            background-color: #f8f9fa;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .file-upload-btn {
+            background-color: var(--gray-color);
+            color: white;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        /* المخططات */
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .chart-title {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .chat-container {
+                flex-direction: column;
+                height: 600px;
+            }
+            
+            .chat-sidebar, .chat-main {
+                width: 100%;
+            }
+            
+            .chat-sidebar {
+                height: 40%;
+            }
+            
+            .chat-main {
+                height: 60%;
+            }
+            
+            .dashboard-tabs {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* تذييل الصفحة */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            display: none;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة تسجيل الدخول -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-container">
+            <img src="favicon.png" alt="El Wajiha DZ Logo" class="login-logo">
+            <h2 class="login-title" id="login-title">لوحة تحكم البلدية</h2>
+            <p class="login-subtitle" id="login-subtitle">يجب إدخال رمز الدخول للوصول إلى لوحة التحكم</p>
+            
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label for="admin-password" id="password-label">رمز الدخول السري</label>
+                    <input type="password" id="admin-password" required>
+                    <small style="color: var(--gray-color); display: block; margin-top: 5px;" id="password-hint">الرمز السري: 00000000</small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> <span id="login-text">دخول إلى لوحة التحكم</span>
+                </button>
+            </form>
+            
+            <div style="margin-top: 20px;">
+                <a href="index.html" class="btn btn-secondary" style="text-decoration: none;">
+                    <i class="fas fa-arrow-right"></i> <span id="back-text">العودة إلى الصفحة الرئيسية</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="favicon.png" alt="El Wajiha DZ Logo" class="logo-img">
+                <h1>El Wajiha <span>DZ</span></h1>
+            </div>
+            
+            <div class="nav-links">
+                <div class="user-info">
+                    <span class="user-type" id="user-type">بلدية</span>
+                    <a href="#" class="logout-btn" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> <span id="logout-text">تسجيل الخروج</span>
+                    </a>
+                </div>
+                
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ar" id="lang-ar">العربية</button>
+                    <button class="lang-btn" data-lang="fr" id="lang-fr">Français</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content container" id="main-content">
+        <div class="dashboard-header">
+            <h1 class="page-title" id="dashboard-title">لوحة تحكم البلدية</h1>
+            <div class="btn btn-primary" id="refresh-btn">
+                <i class="fas fa-sync-alt"></i> <span id="refresh-text">تحديث البيانات</span>
+            </div>
+        </div>
+        
+        <!-- إحصائيات سريعة -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-number" id="total-voters">0</div>
+                <div class="stat-label" id="stat-voters-label">إجمالي المصوتين</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-designs">0</div>
+                <div class="stat-label" id="stat-designs-label">إجمالي التصاميم</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-votes">0</div>
+                <div class="stat-label" id="stat-votes-label">إجمالي الأصوات</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="participation-rate">0%</div>
+                <div class="stat-label" id="stat-participation-label">معدل المشاركة</div>
+            </div>
+        </div>
+        
+        <!-- علامات التبويب -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" data-tab="voters-tab" id="tab-voters">
+                <i class="fas fa-users"></i> <span id="tab-voters-text">المصوتون</span>
+            </button>
+            <button class="tab-btn" data-tab="designs-tab" id="tab-designs">
+                <i class="fas fa-drafting-compass"></i> <span id="tab-designs-text">إدارة التصاميم</span>
+            </button>
+            <button class="tab-btn" data-tab="chat-tab" id="tab-chat">
+                <i class="fas fa-comments"></i> <span id="tab-chat-text">المحادثات</span>
+            </button>
+            <button class="tab-btn" data-tab="stats-tab" id="tab-stats">
+                <i class="fas fa-chart-bar"></i> <span id="tab-stats-text">الإحصائيات</span>
+            </button>
+            <button class="tab-btn" data-tab="settings-tab" id="tab-settings">
+                <i class="fas fa-cog"></i> <span id="tab-settings-text">الإعدادات</span>
+            </button>
+        </div>
+        
+        <!-- علامة تبويب المصوتين -->
+        <div class="tab-content active" id="voters-tab">
+            <h2 style="margin-bottom: 20px;" id="voters-title">قاعدة بيانات المصوتين</h2>
+            
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th id="th-name">الاسم الكامل</th>
+                            <th id="th-cadastral">رقم الدفتر العقاري</th>
+                            <th id="th-design">التصميم المختار</th>
+                            <th id="th-date">تاريخ التصويت</th>
+                            <th id="th-actions">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="voters-table-body">
+                        <!-- سيتم تعبئة البيانات ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- علامة تبويب إدارة التصاميم -->
+        <div class="tab-content" id="designs-tab">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="designs-title">إدارة التصاميم المعروضة</h2>
+                <button class="btn btn-primary" id="add-design-btn">
+                    <i class="fas fa-plus"></i> <span id="add-design-text">إضافة تصميم جديد</span>
+                </button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th id="th-design-name">اسم التصميم</th>
+                            <th id="th-engineer">المهندس</th>
+                            <th id="th-design-date">تاريخ النشر</th>
+                            <th id="th-votes-count">عدد الأصوات</th>
+                            <th id="th-design-actions">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="designs-table-body">
+                        <!-- سيتم تعبئة البيانات ديناميكياً -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- علامة تبويب المحادثات -->
+        <div class="tab-content" id="chat-tab">
+            <h2 style="margin-bottom: 20px;" id="chat-title">المحادثات مع المهندسين</h2>
+            
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div style="padding: 15px; border-bottom: 1px solid #ddd;">
+                        <h4 id="engineers-title">المهندسون</h4>
+                    </div>
+                    <div id="engineers-list">
+                        <!-- قائمة المهندسين -->
+                    </div>
+                </div>
+                
+                <div class="chat-main">
+                    <div class="chat-header" id="chat-header">
+                        <span id="select-engineer-text">اختر مهندساً للمحادثة</span>
+                    </div>
+                    
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- الرسائل ستظهر هنا -->
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" id="message-input" placeholder="اكتب رسالتك هنا..." disabled>
+                        <button class="btn btn-primary" id="send-btn" disabled>
+                            <i class="fas fa-paper-plane"></i> <span id="send-text">إرسال</span>
+                        </button>
+                        <label for="file-upload" class="file-upload-btn">
+                            <i class="fas fa-paperclip"></i>
+                        </label>
+                        <input type="file" id="file-upload" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- علامة تبويب الإحصائيات -->
+        <div class="tab-content" id="stats-tab">
+            <h2 style="margin-bottom: 20px;" id="stats-title">إحصائيات التصويت</h2>
+            
+            <div class="chart-container">
+                <h3 class="chart-title" id="votes-chart-title">توزيع الأصوات على التصاميم</h3>
+                <canvas id="votes-chart" style="width: 100%; height: 300px;"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h3 class="chart-title" id="daily-chart-title">نشاط التصويت اليومي</h3>
+                <canvas id="daily-votes-chart" style="width: 100%; height: 300px;"></canvas>
+            </div>
+        </div>
+        
+        <!-- علامة تبويب الإعدادات -->
+        <div class="tab-content" id="settings-tab">
+            <h2 style="margin-bottom: 20px;" id="settings-title">إعدادات المنصة</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: var(--border-radius);">
+                    <h3 style="margin-bottom: 15px;" id="platform-settings-title">إعدادات المنصة</h3>
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="platform-name" id="platform-name-label">اسم المنصة</label>
+                        <input type="text" id="platform-name" class="form-control" value="El Wajiha DZ">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="voting-deadline" id="deadline-label">موعد انتهاء التصويت</label>
+                        <input type="date" id="voting-deadline" class="form-control">
+                    </div>
+                    
+                    <button class="btn btn-primary" id="save-settings-btn">
+                        <i class="fas fa-save"></i> <span id="save-settings-text">حفظ الإعدادات</span>
+                    </button>
+                </div>
+                
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: var(--border-radius);">
+                    <h3 style="margin-bottom: 15px;" id="info-title">معلومات المبادرة</h3>
+                    <p style="margin-bottom: 10px;" id="creator-info">فكرة السيد بلمواز طاهر عبد الإله</p>
+                    <p style="margin-bottom: 10px;" id="university-info">جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2</p>
+                    <p style="margin-bottom: 10px;"><strong id="phone-label">هاتف:</strong> 0556963239</p>
+                    <p style="margin-bottom: 10px;"><strong id="email-label">بريد إلكتروني:</strong> Abdelilah.belmouaz@gmail.com</p>
+                    <p style="margin-bottom: 10px;"><strong id="year-label">السنة:</strong> <span id="current-year"></span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p id="footer-copyright">جميع الحقوق محفوظة &copy; <span id="footer-year"></span> El Wajiha DZ - لوحة تحكم البلدية</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تحميل اللغة المحفوظة
+        function loadLanguage() {
+            return localStorage.getItem('elwajiha_language') || 'ar';
+        }
+        
+        // نص الترجمة الكامل
+        const translations = {
+            ar: {
+                // شاشة تسجيل الدخول
+                loginTitle: "لوحة تحكم البلدية",
+                loginSubtitle: "يجب إدخال رمز الدخول للوصول إلى لوحة التحكم",
+                passwordLabel: "رمز الدخول السري",
+                passwordHint: "الرمز السري: 00000000",
+                loginText: "دخول إلى لوحة التحكم",
+                backText: "العودة إلى الصفحة الرئيسية",
+                logoutText: "تسجيل الخروج",
+                
+                // لوحة التحكم
+                dashboardTitle: "لوحة تحكم البلدية",
+                refreshText: "تحديث البيانات",
+                statVotersLabel: "إجمالي المصوتين",
+                statDesignsLabel: "إجمالي التصاميم",
+                statVotesLabel: "إجمالي الأصوات",
+                statParticipationLabel: "معدل المشاركة",
+                
+                // علامات التبويب
+                tabVotersText: "المصوتون",
+                tabDesignsText: "إدارة التصاميم",
+                tabChatText: "المحادثات",
+                tabStatsText: "الإحصائيات",
+                tabSettingsText: "الإعدادات",
+                
+                // تبويب المصوتين
+                votersTitle: "قاعدة بيانات المصوتين",
+                thName: "الاسم الكامل",
+                thCadastral: "رقم الدفتر العقاري",
+                thDesign: "التصميم المختار",
+                thDate: "تاريخ التصويت",
+                thActions: "الإجراءات",
+                viewText: "عرض",
+                deleteText: "حذف",
+                noVotersText: "لا يوجد مصوتون حتى الآن",
+                
+                // تبويب التصاميم
+                designsTitle: "إدارة التصاميم المعروضة",
+                addDesignText: "إضافة تصميم جديد",
+                thDesignName: "اسم التصميم",
+                thEngineer: "المهندس",
+                thDesignDate: "تاريخ النشر",
+                thVotesCount: "عدد الأصوات",
+                thDesignActions: "الإجراءات",
+                editText: "تعديل",
+                noDesignsText: "لا توجد تصاميم معروضة",
+                
+                // تبويب المحادثات
+                chatTitle: "المحادثات مع المهندسين",
+                engineersTitle: "المهندسون",
+                selectEngineerText: "اختر مهندساً للمحادثة",
+                sendText: "إرسال",
+                noEngineersText: "لا يوجد مهندسون مسجلون",
+                noMessagesText: "لا توجد رسائل بعد. ابدأ المحادثة الآن!",
+                
+                // تبويب الإحصائيات
+                statsTitle: "إحصائيات التصويت",
+                votesChartTitle: "توزيع الأصوات على التصاميم",
+                dailyChartTitle: "نشاط التصويت اليومي",
+                
+                // تبويب الإعدادات
+                settingsTitle: "إعدادات المنصة",
+                platformSettingsTitle: "إعدادات المنصة",
+                platformNameLabel: "اسم المنصة",
+                deadlineLabel: "موعد انتهاء التصويت",
+                saveSettingsText: "حفظ الإعدادات",
+                infoTitle: "معلومات المبادرة",
+                creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
+                universityInfo: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
+                phoneLabel: "هاتف",
+                emailLabel: "بريد إلكتروني",
+                yearLabel: "السنة",
+                
+                // رسائل
+                confirmDelete: "هل أنت متأكد من حذف هذا السجل؟",
+                designAdded: "تمت إضافة التصميم بنجاح",
+                settingsSaved: "تم حفظ الإعدادات بنجاح",
+                messageSent: "تم إرسال الرسالة بنجاح",
+                
+                // تذييل الصفحة
+                footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - لوحة تحكم البلدية"
+            },
+            fr: {
+                // شاشة تسجيل الدخول
+                loginTitle: "Tableau de bord municipal",
+                loginSubtitle: "Veuillez entrer le code d'accès pour accéder au tableau de bord",
+                passwordLabel: "Code d'accès sécurisé",
+                passwordHint: "Code secret: 00000000",
+                loginText: "Accéder au tableau de bord",
+                backText: "Retour à la page d'accueil",
+                logoutText: "Déconnexion",
+                
+                // لوحة التحكم
+                dashboardTitle: "Tableau de bord municipal",
+                refreshText: "Actualiser les données",
+                statVotersLabel: "Total des électeurs",
+                statDesignsLabel: "Total des designs",
+                statVotesLabel: "Total des votes",
+                statParticipationLabel: "Taux de participation",
+                
+                // علامات التبويب
+                tabVotersText: "Électeurs",
+                tabDesignsText: "Gestion des designs",
+                tabChatText: "Conversations",
+                tabStatsText: "Statistiques",
+                tabSettingsText: "Paramètres",
+                
+                // تبويب المصوتين
+                votersTitle: "Base de données des électeurs",
+                thName: "Nom complet",
+                thCadastral: "Numéro cadastral",
+                thDesign: "Design choisi",
+                thDate: "Date de vote",
+                thActions: "Actions",
+                viewText: "Voir",
+                deleteText: "Supprimer",
+                noVotersText: "Aucun électeur pour le moment",
+                
+                // تبويب التصاميم
+                designsTitle: "Gestion des designs affichés",
+                addDesignText: "Ajouter un nouveau design",
+                thDesignName: "Nom du design",
+                thEngineer: "Ingénieur",
+                thDesignDate: "Date de publication",
+                thVotesCount: "Nombre de votes",
+                thDesignActions: "Actions",
+                editText: "Modifier",
+                noDesignsText: "Aucun design affiché",
+                
+                // تبويب المحادثات
+                chatTitle: "Conversations avec les ingénieurs",
+                engineersTitle: "Ingénieurs",
+                selectEngineerText: "Sélectionnez un ingénieur pour discuter",
+                sendText: "Envoyer",
+                noEngineersText: "Aucun ingénieur enregistré",
+                noMessagesText: "Aucun message pour le moment. Commencez la conversation maintenant!",
+                
+                // تبويب الإحصائيات
+                statsTitle: "Statistiques de vote",
+                votesChartTitle: "Répartition des votes par design",
+                dailyChartTitle: "Activité de vote quotidienne",
+                
+                // تبويب الإعدادات
+                settingsTitle: "Paramètres de la plateforme",
+                platformSettingsTitle: "Paramètres de la plateforme",
+                platformNameLabel: "Nom de la plateforme",
+                deadlineLabel: "Date limite de vote",
+                saveSettingsText: "Enregistrer les paramètres",
+                infoTitle: "Informations sur l'initiative",
+                creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
+                universityInfo: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
+                phoneLabel: "Téléphone",
+                emailLabel: "Email",
+                yearLabel: "Année",
+                
+                // رسائل
+                confirmDelete: "Êtes-vous sûr de vouloir supprimer cet enregistrement?",
+                designAdded: "Design ajouté avec succès",
+                settingsSaved: "Paramètres enregistrés avec succès",
+                messageSent: "Message envoyé avec succès",
+                
+                // تذييل الصفحة
+                footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Tableau de bord municipal"
+            }
+        };
+        
+        // الحالة الحالية
+        let currentLang = 'ar';
+        let isLoggedIn = false;
+        
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // تعيين اللغة المحفوظة
+            currentLang = loadLanguage();
+            
+            // تعيين السنة الحالية
+            const currentYear = new Date().getFullYear();
+            document.getElementById('current-year').textContent = currentYear;
+            document.getElementById('footer-year').textContent = currentYear;
+            
+            // تطبيق اللغة
+            applyLanguage();
+            
+            // التحقق من تسجيل الدخول
+            checkLoginStatus();
+            
+            // إعداد مستمعي الأحداث
+            setupEventListeners();
+        });
+        
+        // التحقق من حالة تسجيل الدخول
+        function checkLoginStatus() {
+            const savedLogin = localStorage.getItem('elwajiha_municipality_login');
+            if (savedLogin === 'true') {
+                isLoggedIn = true;
+                showDashboard();
+            } else {
+                showLoginScreen();
+            }
+        }
+        
+        // تطبيق اللغة
+        function applyLanguage() {
+            const t = translations[currentLang];
+            
+            // تحديث جميع النصوص
+            updateAllTexts(t);
+            
+            // تحديث أزرار اللغة
+            updateLanguageButtons();
+            
+            // إذا كانت لوحة التحكم ظاهرة، قم بتحديث البيانات
+            if (isLoggedIn) {
+                updateStats();
+                loadVotersData();
+                loadDesignsData();
+                if (document.getElementById('chat-tab').classList.contains('active')) {
+                    loadEngineersList();
+                }
+            }
+        }
+        
+        // تحديث جميع النصوص
+        function updateAllTexts(t) {
+            // تحديث العناصر الموجودة
+            const elementsToUpdate = [
+                'login-title', 'login-subtitle', 'password-label', 'password-hint',
+                'login-text', 'back-text', 'logout-text', 'dashboard-title',
+                'refresh-text', 'stat-voters-label', 'stat-designs-label',
+                'stat-votes-label', 'stat-participation-label', 'tab-voters-text',
+                'tab-designs-text', 'tab-chat-text', 'tab-stats-text', 'tab-settings-text',
+                'voters-title', 'th-name', 'th-cadastral', 'th-design', 'th-date',
+                'th-actions', 'designs-title', 'add-design-text', 'th-design-name',
+                'th-engineer', 'th-design-date', 'th-votes-count', 'th-design-actions',
+                'chat-title', 'engineers-title', 'select-engineer-text', 'send-text',
+                'stats-title', 'votes-chart-title', 'daily-chart-title', 'settings-title',
+                'platform-settings-title', 'platform-name-label', 'deadline-label',
+                'save-settings-text', 'info-title', 'creator-info', 'university-info',
+                'phone-label', 'email-label', 'year-label', 'footer-copyright'
+            ];
+            
+            elementsToUpdate.forEach(id => {
+                const element = document.getElementById(id);
+                if (element && t[id]) {
+                    if (id === 'footer-copyright') {
+                        const year = new Date().getFullYear();
+                        element.textContent = t[id].replace('YEAR', year);
+                    } else {
+                        element.textContent = t[id];
+                    }
+                }
+            });
+        }
+        
+        // تحديث أزرار اللغة
+        function updateLanguageButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const lang = btn.getAttribute('data-lang');
+                btn.classList.toggle('active', lang === currentLang);
+            });
+        }
+        
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // نموذج تسجيل الدخول
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const password = document.getElementById('admin-password').value;
+                const correctPassword = '00000000';
+                
+                if (password === correctPassword) {
+                    isLoggedIn = true;
+                    localStorage.setItem('elwajiha_municipality_login', 'true');
+                    showDashboard();
+                } else {
+                    alert(currentLang === 'ar' ? 'رمز الدخول غير صحيح!' : 'Code d\'accès incorrect!');
+                }
+            });
+            
+            // زر تسجيل الخروج
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+            
+            // أزرار اللغة
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    currentLang = lang;
+                    localStorage.setItem('elwajiha_language', lang);
+                    applyLanguage();
+                });
+            });
+            
+            // أزرار علامات التبويب
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // تحديث الأزرار النشطة
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // إظهار المحتوى المناسب
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // تحميل بيانات التبويب
+                    if (tabId === 'chat-tab') {
+                        loadEngineersList();
+                    } else if (tabId === 'stats-tab') {
+                        loadCharts();
+                    }
+                });
+            });
+            
+            // زر إضافة تصميم
+            document.getElementById('add-design-btn').addEventListener('click', addNewDesign);
+            
+            // زر إرسال الرسالة
+            document.getElementById('send-btn').addEventListener('click', sendMessage);
+            
+            // زر حفظ الإعدادات
+            document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
+            
+            // زر تحديث البيانات
+            document.getElementById('refresh-btn').addEventListener('click', refreshData);
+        }
+        
+        // تسجيل الخروج
+        function logout() {
+            isLoggedIn = false;
+            localStorage.removeItem('elwajiha_municipality_login');
+            showLoginScreen();
+        }
+        
+        // إظهار شاشة تسجيل الدخول
+        function showLoginScreen() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('navbar').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+        }
+        
+        // إظهار لوحة التحكم
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('navbar').style.display = 'block';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('footer').style.display = 'block';
+            
+            // تحميل البيانات
+            updateStats();
+            loadVotersData();
+            loadDesignsData();
+        }
+        
+        // تحديث الإحصائيات
+        function updateStats() {
+            const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+            const uniqueVoters = [...new Set(votes.map(v => v.cadastral))];
+            
+            document.getElementById('total-voters').textContent = uniqueVoters.length;
+            document.getElementById('total-designs').textContent = 4; // عدد التصاميم الثابت
+            document.getElementById('total-votes').textContent = votes.length;
+            document.getElementById('participation-rate').textContent = `${Math.round((uniqueVoters.length / 1000) * 100)}%`;
+        }
+        
+        // تحميل بيانات المصوتين
+        function loadVotersData() {
+            const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+            const tbody = document.getElementById('voters-table-body');
+            tbody.innerHTML = '';
+            
+            if (votes.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px; color: var(--gray-color);">
+                            ${currentLang === 'ar' ? 'لا يوجد مصوتون حتى الآن' : 'Aucun électeur pour le moment'}
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            votes.forEach((vote, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${vote.name}</td>
+                    <td>${vote.cadastral}</td>
+                    <td>${currentLang === 'ar' ? 'تصميم ' + vote.designId : 'Design ' + vote.designId}</td>
+                    <td>${vote.date}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="viewVoter(${index})">
+                            <i class="fas fa-eye"></i> ${currentLang === 'ar' ? 'عرض' : 'Voir'}
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteVoter(${index})">
+                            <i class="fas fa-trash"></i> ${currentLang === 'ar' ? 'حذف' : 'Supprimer'}
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // تحميل بيانات التصاميم
+        function loadDesignsData() {
+            const designs = [
+                {
+                    id: 1,
+                    title: "تصميم حديقة عامة في بلدية الجزائر الوسطى",
+                    title_fr: "Design de jardin public dans la municipalité d'Alger Centre",
+                    engineer: "المهندس أحمد بوعافية",
+                    engineer_fr: "Ingénieur Ahmed Bouafia",
+                    votes: 125,
+                    date: "2023-10-15"
+                },
+                {
+                    id: 2,
+                    title: "تصميم ساحة ترفيهية في القبة",
+                    title_fr: "Design d'une place de loisirs à El Qobba",
+                    engineer: "المهندسة ليلى قاسمي",
+                    engineer_fr: "Ingénieure Leïla Kassimi",
+                    votes: 89,
+                    date: "2023-10-10"
+                },
+                {
+                    id: 3,
+                    title: "تصميم مجمع رياضي في باب الزوار",
+                    title_fr: "Design d'un complexe sportif à Bab Ezzouar",
+                    engineer: "المهندس خالد مرزوق",
+                    engineer_fr: "Ingénieur Khaled Merzouk",
+                    votes: 203,
+                    date: "2023-10-05"
+                },
+                {
+                    id: 4,
+                    title: "تصميم مكتبة بلدية في الحراش",
+                    title_fr: "Design d'une bibliothèque municipale à El Harrach",
+                    engineer: "المهندسة سارة طالب",
+                    engineer_fr: "Ingénieure Sara Taleb",
+                    votes: 67,
+                    date: "2023-09-28"
+                }
+            ];
+            
+            const tbody = document.getElementById('designs-table-body');
+            tbody.innerHTML = '';
+            
+            designs.forEach((design, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${currentLang === 'ar' ? design.title : design.title_fr}</td>
+                    <td>${currentLang === 'ar' ? design.engineer : design.engineer_fr}</td>
+                    <td>${design.date}</td>
+                    <td>${design.votes}</td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editDesign(${design.id})">
+                            <i class="fas fa-edit"></i> ${currentLang === 'ar' ? 'تعديل' : 'Modifier'}
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteDesign(${design.id})">
+                            <i class="fas fa-trash"></i> ${currentLang === 'ar' ? 'حذف' : 'Supprimer'}
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // تحميل قائمة المهندسين
+        function loadEngineersList() {
+            const engineers = [
+                {
+                    id: 1,
+                    name: "المهندس أحمد بوعافية",
+                    name_fr: "Ingénieur Ahmed Bouafia",
+                    specialization: "تصميم الحدائق والمساحات الخضراء",
+                    specialization_fr: "Design de jardins et espaces verts"
+                },
+                {
+                    id: 2,
+                    name: "المهندسة ليلى قاسمي",
+                    name_fr: "Ingénieure Leïla Kassimi",
+                    specialization: "التصميم الحضري والترفيهي",
+                    specialization_fr: "Design urbain et de loisirs"
+                },
+                {
+                    id: 3,
+                    name: "المهندس خالد مرزوق",
+                    name_fr: "Ingénieur Khaled Merzouk",
+                    specialization: "المباني الرياضية والترفيهية",
+                    specialization_fr: "Bâtiments sportifs et de loisirs"
+                },
+                {
+                    id: 4,
+                    name: "المهندسة سارة طالب",
+                    name_fr: "Ingénieure Sara Taleb",
+                    specialization: "المباني الثقافية والتعليمية",
+                    specialization_fr: "Bâtiments culturels et éducatifs"
+                }
+            ];
+            
+            const engineersList = document.getElementById('engineers-list');
+            engineersList.innerHTML = '';
+            
+            engineers.forEach(engineer => {
+                const engineerEl = document.createElement('div');
+                engineerEl.style.padding = '15px';
+                engineerEl.style.borderBottom = '1px solid #ddd';
+                engineerEl.style.cursor = 'pointer';
+                engineerEl.style.transition = 'background-color 0.3s';
+                
+                engineerEl.innerHTML = `
+                    <h4 style="margin-bottom: 5px;">${currentLang === 'ar' ? engineer.name : engineer.name_fr}</h4>
+                    <p style="color: var(--gray-color); font-size: 0.9rem;">${currentLang === 'ar' ? engineer.specialization : engineer.specialization_fr}</p>
+                `;
+                
+                engineerEl.addEventListener('click', function() {
+                    // إزالة التحديد من جميع المهندسين
+                    document.querySelectorAll('#engineers-list > div').forEach(el => {
+                        el.style.backgroundColor = 'transparent';
+                    });
+                    
+                    // تحديد المهندس المختار
+                    engineerEl.style.backgroundColor = 'var(--light-green)';
+                    
+                    // تحميل المحادثة
+                    loadChat(engineer.id);
+                });
+                
+                engineersList.appendChild(engineerEl);
+            });
+        }
+        
+        // تحميل المحادثة
+        function loadChat(engineerId) {
+            const engineers = [
+                {id: 1, name: "المهندس أحمد بوعافية", name_fr: "Ingénieur Ahmed Bouafia"},
+                {id: 2, name: "المهندسة ليلى قاسمي", name_fr: "Ingénieure Leïla Kassimi"},
+                {id: 3, name: "المهندس خالد مرزوق", name_fr: "Ingénieur Khaled Merzouk"},
+                {id: 4, name: "المهندسة سارة طالب", name_fr: "Ingénieure Sara Taleb"}
+            ];
+            
+            const engineer = engineers.find(e => e.id === engineerId);
+            if (!engineer) return;
+            
+            document.getElementById('chat-header').innerHTML = `<span>${currentLang === 'ar' ? 'المحادثة مع' : 'Conversation avec'} ${currentLang === 'ar' ? engineer.name : engineer.name_fr}</span>`;
+            
+            // تفعيل حقل الإدخال
+            document.getElementById('message-input').disabled = false;
+            document.getElementById('send-btn').disabled = false;
+            document.getElementById('message-input').placeholder = currentLang === 'ar' ? 'اكتب رسالتك هنا...' : 'Tapez votre message ici...';
+            
+            // تحميل الرسائل
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '<p style="text-align: center; color: var(--gray-color); padding: 30px;">' + 
+                (currentLang === 'ar' ? 'لا توجد رسائل بعد. ابدأ المحادثة الآن!' : 'Aucun message pour le moment. Commencez la conversation maintenant!') + 
+                '</p>';
+        }
+        
+        // إرسال رسالة
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value.trim();
+            
+            if (!messageText) return;
+            
+            // محاكاة إرسال الرسالة
+            alert(currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message envoyé avec succès');
+            messageInput.value = '';
+        }
+        
+        // تحميل المخططات
+        function loadCharts() {
+            // مخطط الأصوات
+            const votesCtx = document.getElementById('votes-chart').getContext('2d');
+            
+            // تدمير المخطط القديم إذا كان موجوداً
+            if (window.votesChart) {
+                window.votesChart.destroy();
+            }
+            
+            window.votesChart = new Chart(votesCtx, {
+                type: 'bar',
+                data: {
+                    labels: currentLang === 'ar' ? 
+                        ['حديقة عامة', 'ساحة ترفيهية', 'مجمع رياضي', 'مكتبة بلدية'] :
+                        ['Jardin public', 'Place de loisirs', 'Complexe sportif', 'Bibliothèque municipale'],
+                    datasets: [{
+                        label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
+                        data: [125, 89, 203, 67],
+                        backgroundColor: 'rgba(0, 102, 51, 0.7)',
+                        borderColor: 'rgba(0, 102, 51, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    }
+                }
+            });
+            
+            // مخطط النشاط اليومي
+            const dailyCtx = document.getElementById('daily-votes-chart').getContext('2d');
+            
+            // تدمير المخطط القديم إذا كان موجوداً
+            if (window.dailyChart) {
+                window.dailyChart.destroy();
+            }
+            
+            window.dailyChart = new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: currentLang === 'ar' ? 
+                        ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'] :
+                        ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+                    datasets: [{
+                        label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
+                        data: [12, 19, 8, 15, 22, 10, 7],
+                        borderColor: 'rgba(200, 16, 46, 1)',
+                        backgroundColor: 'rgba(200, 16, 46, 0.1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // إضافة تصميم جديد
+        function addNewDesign() {
+            const designName = prompt(currentLang === 'ar' ? 'أدخل اسم التصميم الجديد:' : 'Entrez le nom du nouveau design:');
+            if (!designName) return;
+            
+            alert(currentLang === 'ar' ? 'تمت إضافة التصميم بنجاح' : 'Design ajouté avec succès');
+        }
+        
+        // حفظ الإعدادات
+        function saveSettings() {
+            alert(currentLang === 'ar' ? 'تم حفظ الإعدادات بنجاح' : 'Paramètres enregistrés avec succès');
+        }
+        
+        // تحديث البيانات
+        function refreshData() {
+            updateStats();
+            loadVotersData();
+            loadDesignsData();
+            alert(currentLang === 'ar' ? 'تم تحديث البيانات' : 'Données actualisées');
+        }
+        
+        // وظائف للاستخدام في HTML
+        window.viewVoter = function(index) {
+            const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+            const vote = votes[index];
+            if (vote) {
+                alert(`${currentLang === 'ar' ? 'معلومات المصوت:' : 'Informations de l\'électeur:'}\n${currentLang === 'ar' ? 'الاسم:' : 'Nom:'} ${vote.name}\n${currentLang === 'ar' ? 'الرقم العقاري:' : 'Numéro cadastral:'} ${vote.cadastral}\n${currentLang === 'ar' ? 'تاريخ التصويت:' : 'Date de vote:'} ${vote.date}`);
+            }
+        };
+        
+        window.deleteVoter = function(index) {
+            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا السجل؟' : 'Êtes-vous sûr de vouloir supprimer cet enregistrement?')) {
+                const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+                votes.splice(index, 1);
+                localStorage.setItem('elwajiha_votes', JSON.stringify(votes));
+                loadVotersData();
+                updateStats();
+            }
+        };
+        
+        window.editDesign = function(designId) {
+            alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
+        };
+        
+        window.deleteDesign = function(designId) {
+            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا التصميم؟' : 'Êtes-vous sûr de vouloir supprimer ce design?')) {
+                alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
+            }
+        };
+    </script>
+</body>
+</html>
