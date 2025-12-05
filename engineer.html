@@ -604,7 +604,7 @@
                 <div class="form-group">
                     <label for="engineer-password" id="password-label">كلمة المرور</label>
                     <input type="password" id="engineer-password" required>
-                    <small style="color: var(--gray-color); display: block; margin-top: 5px;" id="password-hint">كلمة المرور : 00000009</small>
+                    <small style="color: var(--gray-color); display: block; margin-top: 5px;" id="password-hint">كلمة المرور : 10101010</small>
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-block" id="login-btn">
@@ -809,7 +809,6 @@
         </div>
     </footer>
 
-
 <script>
     // تحميل اللغة المحفوظة
     function loadLanguage() {
@@ -823,7 +822,7 @@
             loginTitle: "لوحة تحكم المهندس",
             loginSubtitle: "سجل الدخول لإدارة تصاميمك والتواصل مع البلدية",
             passwordLabel: "كلمة المرور",
-            passwordHint: "كلمة المرور : 00000009",
+            passwordHint: "كلمة المرور : 10101010",
             loginText: "دخول إلى لوحة التحكم",
             backText: "العودة إلى الصفحة الرئيسية",
             
@@ -902,7 +901,7 @@
             loginSuccess: "تم تسجيل الدخول بنجاح!",
             loginError: "كلمة المرور غير صحيحة!",
             dataUpdated: "تم تحديث البيانات",
-            fillRequiredFields: "يرجى ملء جميع الحوال المطلوبة",
+            fillRequiredFields: "يرجى ملء جميع الحقول المطلوبة",
             fileRemoved: "تمت إزالة الملف"
         },
         fr: {
@@ -910,7 +909,7 @@
             loginTitle: "Tableau de bord de l'ingénieur",
             loginSubtitle: "Connectez-vous pour gérer vos designs et communiquer avec la municipalité",
             passwordLabel: "Mot de passe",
-            passwordHint: "Mot de passe: 00000009",
+            passwordHint: "Mot de passe: 10101010",
             loginText: "Accéder au tableau de bord",
             backText: "Retour à la page d'accueil",
             
@@ -1006,7 +1005,6 @@
         
         // تعيين السنة الحالية
         const currentYear = new Date().getFullYear();
-        document.getElementById('current-year').textContent = currentYear;
         document.getElementById('footer-year').textContent = currentYear;
         
         // تطبيق اللغة
@@ -1135,21 +1133,36 @@
     
     // إعداد مستمعي الأحداث
     function setupEventListeners() {
-        // نموذج تسجيل الدخول
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+        // نموذج تسجيل الدخول - تم التعديل لمنع مشكلة حفظ كلمات المرور
+        const loginForm = document.getElementById('login-form');
+        loginForm.removeAttribute('action');
+        loginForm.removeAttribute('method');
+        
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const password = document.getElementById('engineer-password').value;
-            const correctPassword = '00000009';
+            const correctPassword = '10101010'; // تم تغيير كلمة المرور
+            
+            // منع المتصفح من حفظ كلمة المرور
+            document.getElementById('engineer-password').autocomplete = 'off';
             
             if (password === correctPassword) {
                 isLoggedIn = true;
                 localStorage.setItem('elwajiha_engineer_login', 'true');
                 showDashboard();
-                alert(translations[currentLang].loginSuccess);
+                showNotification(translations[currentLang].loginSuccess, 'success');
             } else {
-                alert(translations[currentLang].loginError);
+                showNotification(translations[currentLang].loginError, 'error');
             }
+            
+            // إعادة تعيين حقل كلمة المرور بعد التسجيل
+            document.getElementById('engineer-password').value = '';
+        });
+        
+        // إضافة مستمع للأدخال لمنع حفظ كلمة المرور
+        document.getElementById('engineer-password').addEventListener('input', function() {
+            this.autocomplete = 'off';
         });
         
         // زر تسجيل الخروج
@@ -1215,6 +1228,69 @@
         
         // زر تحديث البيانات
         document.getElementById('refresh-btn').addEventListener('click', refreshData);
+        
+        // إدخال الرسالة عند الضغط على Enter
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+    
+    // وظيفة لإظهار الإشعارات بدلاً من التنبيهات المنبثقة
+    function showNotification(message, type = 'info') {
+        // إزالة أي إشعارات سابقة
+        const existingNotification = document.querySelector('.custom-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+        
+        // إنشاء عنصر الإشعار
+        const notification = document.createElement('div');
+        notification.className = `custom-notification ${type}`;
+        notification.textContent = message;
+        
+        // إضافة الأنماط
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            background-color: ${type === 'success' ? '#006633' : type === 'error' ? '#C8102E' : '#333'};
+            color: white;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            z-index: 9999;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            min-width: 300px;
+            max-width: 90%;
+            animation: slideDown 0.3s ease;
+        `;
+        
+        // إضافة رسوم متحركة
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { top: -100px; opacity: 0; }
+                to { top: 20px; opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // إضافة الإشعار إلى الصفحة
+        document.body.appendChild(notification);
+        
+        // إزالة الإشعار بعد 3 ثوانٍ
+        setTimeout(() => {
+            notification.style.animation = 'slideUp 0.3s ease';
+            notification.style.top = '-100px';
+            notification.style.opacity = '0';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
     
     // تسجيل الخروج
@@ -1222,6 +1298,10 @@
         isLoggedIn = false;
         localStorage.removeItem('elwajiha_engineer_login');
         showLoginScreen();
+        showNotification(
+            currentLang === 'ar' ? 'تم تسجيل الخروج بنجاح' : 'Déconnexion réussie',
+            'info'
+        );
     }
     
     // إظهار شاشة تسجيل الدخول
@@ -1230,6 +1310,9 @@
         document.getElementById('navbar').style.display = 'none';
         document.getElementById('main-content').style.display = 'none';
         document.getElementById('footer').style.display = 'none';
+        
+        // إعادة تعيين حقل كلمة المرور
+        document.getElementById('engineer-password').value = '';
     }
     
     // إظهار لوحة التحكم
@@ -1352,7 +1435,7 @@
             removeBtn.style.color = 'var(--secondary-color)';
             
             removeBtn.addEventListener('click', function() {
-                alert(translations[currentLang].fileRemoved);
+                showNotification(translations[currentLang].fileRemoved);
                 container.innerHTML = '';
             });
             
@@ -1371,11 +1454,11 @@
         const designDescription = document.getElementById('design-description').value.trim();
         
         if (!designName || !designDescription) {
-            alert(t.fillRequiredFields);
+            showNotification(t.fillRequiredFields, 'error');
             return;
         }
         
-        alert(t.designUploaded);
+        showNotification(t.designUploaded, 'success');
         
         // إعادة تعيين النموذج
         document.getElementById('upload-design-form').reset();
@@ -1456,26 +1539,33 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }, 2000);
         
-        alert(translations[currentLang].messageSent);
+        showNotification(translations[currentLang].messageSent, 'success');
     }
     
     // تحديث البيانات
     function refreshData() {
         loadMyDesigns();
-        alert(translations[currentLang].dataUpdated);
+        showNotification(translations[currentLang].dataUpdated, 'success');
     }
     
     // وظائف للاستخدام في HTML
     window.editDesign = function(designId) {
-        alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
+        showNotification(
+            currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement',
+            'info'
+        );
     };
     
     window.deleteDesign = function(designId) {
         if (confirm(translations[currentLang].confirmDelete)) {
-            alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
+            showNotification(
+                currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé',
+                'success'
+            );
             loadMyDesigns();
         }
     };
 </script>
+
 </body>
 </html>
