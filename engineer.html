@@ -783,7 +783,7 @@
                                 <p><strong id="specialty-label">التخصص:</strong> <span id="specialty-value">التصميم المعماري</span></p>
                             </div>
                             <div>
-                                <p><strong id="registration-label">رقم التسجيل:</strong> <span id="registration-value">ENG-2023-001</span></p>
+                                <p><strong id="registration-label">رقم التسجيل:</strong> <span id="registration-value">ENG-2025-001</span></p>
                                 <p><strong id="experience-label">سنوات الخبرة:</strong> <span id="experience-value">5 سنوات</span></p>
                             </div>
                         </div>
@@ -810,587 +810,674 @@
         </div>
     </footer>
 
-    <script>
-        // تحميل اللغة المحفوظة
-        function loadLanguage() {
-            return localStorage.getItem('elwajiha_language') || 'ar';
+
+<script>
+    // تحميل اللغة المحفوظة
+    function loadLanguage() {
+        return localStorage.getItem('elwajiha_language') || 'ar';
+    }
+    
+    // نص الترجمة الكامل
+    const translations = {
+        ar: {
+            // شاشة تسجيل الدخول
+            loginTitle: "لوحة تحكم المهندس",
+            loginSubtitle: "سجل الدخول لإدارة تصاميمك والتواصل مع البلدية",
+            passwordLabel: "كلمة المرور",
+            passwordHint: "كلمة المرور: 00000000",
+            loginText: "دخول إلى لوحة التحكم",
+            backText: "العودة إلى الصفحة الرئيسية",
+            
+            // شريط التنقل
+            logoutText: "تسجيل الخروج",
+            userType: "مهندس",
+            arabicBtn: "العربية",
+            frenchBtn: "Français",
+            
+            // لوحة التحكم
+            dashboardTitle: "لوحة تحكم المهندس",
+            refreshText: "تحديث البيانات",
+            
+            // علامات التبويب
+            tabDesignsText: "تصاميمي",
+            tabUploadText: "رفع تصميم جديد",
+            tabChatText: "المحادثات",
+            tabProfileText: "الملف الشخصي",
+            
+            // تبويب التصاميم
+            myDesignsTitle: "تصاميمي المعروضة",
+            editText: "تعديل",
+            deleteText: "حذف",
+            votesText: "صوت",
+            noDesignsText: "لا توجد تصاميم معروضة. ابدأ برفع تصميمك الأول!",
+            
+            // تبويب الرفع
+            uploadTitle: "رفع تصميم جديد",
+            designNameLabel: "اسم التصميم",
+            designDescriptionLabel: "وصف التصميم",
+            designFilesLabel: "ملفات التصميم",
+            fileUploadText: "انقر لرفع الملفات أو اسحبها وأفلتها هنا",
+            fileTypesText: "(PDF, JPG, PNG, DWG - الحد الأقصى: 10MB لكل ملف)",
+            uploadBtnText: "رفع التصميم",
+            instructionsTitle: "تعليمات رفع التصميم",
+            instruction1: "يجب أن يكون التصميم بصيغة PDF أو صور JPG/PNG أو ملفات DWG",
+            instruction2: "يجب أن يحتوي التصميم على جميع التفاصيل الفنية اللازمة",
+            instruction3: "سيتم مراجعة التصميم من قبل البلدية قبل عرضه للتصويت",
+            instruction4: "يمكنك رفع أكثر من ملف لكل تصميم (خطط، واجهات، مقاطع)",
+            
+            // تبويب المحادثات
+            chatTitle: "المحادثات مع البلدية",
+            municipalityTitle: "البلدية",
+            selectConversationText: "اختر محادثة",
+            sendText: "إرسال",
+            messagePlaceholder: "اكتب رسالتك هنا...",
+            noConversationsText: "لا توجد محادثات بعد. ابدأ محادثة جديدة!",
+            noMessagesText: "لا توجد رسائل بعد. ابدأ المحادثة الآن!",
+            
+            // تبويب الملف الشخصي
+            profileTitle: "الملف الشخصي",
+            personalInfoTitle: "المعلومات الشخصية",
+            fullNameLabel: "الاسم الكامل",
+            specialtyLabel: "التخصص",
+            registrationLabel: "رقم التسجيل",
+            experienceLabel: "سنوات الخبرة",
+            platformInfoTitle: "معلومات المنصة",
+            creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
+            universityInfo: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
+            contactLabel: "للتواصل",
+            yearLabel: "السنة",
+            engineerName: "المهندس المسجل",
+            engineerSpecialty: "التصميم المعماري",
+            fullNameValue: "المهندس المسجل",
+            specialtyValue: "التصميم المعماري",
+            registrationValue: "ENG-2025-001",
+            experienceValue: "5 سنوات",
+            contactValue: "هاتف: 0556963239 - بريد إلكتروني: Abdelilah.belmouaz@gmail.com",
+            
+            // تذييل الصفحة
+            footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - لوحة تحكم المهندس",
+            
+            // رسائل
+            confirmDelete: "هل أنت متأكد من حذف هذا التصميم؟",
+            designUploaded: "تم رفع التصميم بنجاح وسيتم مراجعته من قبل البلدية",
+            messageSent: "تم إرسال الرسالة بنجاح",
+            loginSuccess: "تم تسجيل الدخول بنجاح!",
+            loginError: "كلمة المرور غير صحيحة!",
+            dataUpdated: "تم تحديث البيانات",
+            fillRequiredFields: "يرجى ملء جميع الحوال المطلوبة",
+            fileRemoved: "تمت إزالة الملف"
+        },
+        fr: {
+            // شاشة تسجيل الدخول
+            loginTitle: "Tableau de bord de l'ingénieur",
+            loginSubtitle: "Connectez-vous pour gérer vos designs et communiquer avec la municipalité",
+            passwordLabel: "Mot de passe",
+            passwordHint: "Mot de passe: 00000000",
+            loginText: "Accéder au tableau de bord",
+            backText: "Retour à la page d'accueil",
+            
+            // شريط التنقل
+            logoutText: "Déconnexion",
+            userType: "Ingénieur",
+            arabicBtn: "العربية",
+            frenchBtn: "Français",
+            
+            // لوحة التحكم
+            dashboardTitle: "Tableau de bord de l'ingénieur",
+            refreshText: "Actualiser les données",
+            
+            // علامات التبويب
+            tabDesignsText: "Mes designs",
+            tabUploadText: "Télécharger un nouveau design",
+            tabChatText: "Conversations",
+            tabProfileText: "Profil",
+            
+            // تبويب التصاميم
+            myDesignsTitle: "Mes designs affichés",
+            editText: "Modifier",
+            deleteText: "Supprimer",
+            votesText: "votes",
+            noDesignsText: "Aucun design affiché. Commencez par télécharger votre premier design!",
+            
+            // تبويب الرفع
+            uploadTitle: "Télécharger un nouveau design",
+            designNameLabel: "Nom du design",
+            designDescriptionLabel: "Description du design",
+            designFilesLabel: "Fichiers du design",
+            fileUploadText: "Cliquez pour télécharger des fichiers ou faites-les glisser ici",
+            fileTypesText: "(PDF, JPG, PNG, DWG - Maximum: 10MB par fichier)",
+            uploadBtnText: "Télécharger le design",
+            instructionsTitle: "Instructions de téléchargement",
+            instruction1: "Le design doit être au format PDF, images JPG/PNG ou fichiers DWG",
+            instruction2: "Le design doit contenir tous les détails techniques nécessaires",
+            instruction3: "Le design sera examiné par la municipalité avant d'être affiché pour le vote",
+            instruction4: "Vous pouvez télécharger plusieurs fichiers par design (plans, façades, coupes)",
+            
+            // تبويب المحادثات
+            chatTitle: "Conversations avec la municipalité",
+            municipalityTitle: "Municipalité",
+            selectConversationText: "Sélectionnez une conversation",
+            sendText: "Envoyer",
+            messagePlaceholder: "Tapez votre message ici...",
+            noConversationsText: "Aucune conversation pour le moment. Commencez une nouvelle conversation!",
+            noMessagesText: "Aucun message pour le moment. Commencez la conversation maintenant!",
+            
+            // تبويب الملف الشخصي
+            profileTitle: "Profil",
+            personalInfoTitle: "Informations personnelles",
+            fullNameLabel: "Nom complet",
+            specialtyLabel: "Spécialité",
+            registrationLabel: "Numéro d'enregistrement",
+            experienceLabel: "Années d'expérience",
+            platformInfoTitle: "Informations sur la plateforme",
+            creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
+            universityInfo: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
+            contactLabel: "Contact",
+            yearLabel: "Année",
+            engineerName: "Ingénieur enregistré",
+            engineerSpecialty: "Design architectural",
+            fullNameValue: "Ingénieur enregistré",
+            specialtyValue: "Design architectural",
+            registrationValue: "ENG-2025-001",
+            experienceValue: "5 années",
+            contactValue: "Téléphone: 0556963239 - Email: Abdelilah.belmouaz@gmail.com",
+            
+            // تذييل الصفحة
+            footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Tableau de bord de l'ingénieur",
+            
+            // رسائل
+            confirmDelete: "Êtes-vous sûr de vouloir supprimer ce design?",
+            designUploaded: "Design téléchargé avec succès et sera examiné par la municipalité",
+            messageSent: "Message envoyé avec succès",
+            loginSuccess: "Connexion réussie!",
+            loginError: "Mot de passe incorrect!",
+            dataUpdated: "Données actualisées",
+            fillRequiredFields: "Veuillez remplir tous les champs obligatoires",
+            fileRemoved: "Fichier supprimé"
         }
+    };
+    
+    // الحالة الحالية
+    let currentLang = 'ar';
+    let isLoggedIn = false;
+    
+    // تهيئة الصفحة عند التحميل
+    document.addEventListener('DOMContentLoaded', function() {
+        // تعيين اللغة المحفوظة
+        currentLang = loadLanguage();
         
-        // نص الترجمة الكامل
-        const translations = {
-            ar: {
-                // شاشة تسجيل الدخول
-                loginTitle: "لوحة تحكم المهندس",
-                loginSubtitle: "سجل الدخول بإدخال كلمة المرور فقط",
-                passwordLabel: "كلمة المرور",
-                passwordHint: "كلمة المرور: 00000000",
-                loginText: "دخول إلى لوحة التحكم",
-                backText: "العودة إلى الصفحة الرئيسية",
-                logoutText: "تسجيل الخروج",
-                
-                // لوحة التحكم
-                dashboardTitle: "لوحة تحكم المهندس",
-                refreshText: "تحديث البيانات",
-                
-                // علامات التبويب
-                tabDesignsText: "تصاميمي",
-                tabUploadText: "رفع تصميم جديد",
-                tabChatText: "المحادثات",
-                tabProfileText: "الملف الشخصي",
-                
-                // تبويب التصاميم
-                myDesignsTitle: "تصاميمي المعروضة",
-                editText: "تعديل",
-                deleteText: "حذف",
-                votesText: "صوت",
-                noDesignsText: "لا توجد تصاميم معروضة. ابدأ برفع تصميمك الأول!",
-                
-                // تبويب الرفع
-                uploadTitle: "رفع تصميم جديد",
-                designNameLabel: "اسم التصميم",
-                designDescriptionLabel: "وصف التصميم",
-                designFilesLabel: "ملفات التصميم",
-                fileUploadText: "انقر لرفع الملفات أو اسحبها وأفلتها هنا",
-                fileTypesText: "(PDF, JPG, PNG, DWG - الحد الأقصى: 10MB لكل ملف)",
-                uploadBtnText: "رفع التصميم",
-                instructionsTitle: "تعليمات رفع التصميم",
-                instruction1: "يجب أن يكون التصميم بصيغة PDF أو صور JPG/PNG أو ملفات DWG",
-                instruction2: "يجب أن يحتوي التصميم على جميع التفاصيل الفنية اللازمة",
-                instruction3: "سيتم مراجعة التصميم من قبل البلدية قبل عرضه للتصويت",
-                instruction4: "يمكنك رفع أكثر من ملف لكل تصميم (خطط، واجهات، مقاطع)",
-                
-                // تبويب المحادثات
-                chatTitle: "المحادثات مع البلدية",
-                municipalityTitle: "البلدية",
-                selectConversationText: "اختر محادثة",
-                sendText: "إرسال",
-                noConversationsText: "لا توجد محادثات بعد. ابدأ محادثة جديدة!",
-                noMessagesText: "لا توجد رسائل بعد. ابدأ المحادثة الآن!",
-                
-                // تبويب الملف الشخصي
-                profileTitle: "الملف الشخصي",
-                personalInfoTitle: "المعلومات الشخصية",
-                fullNameLabel: "الاسم الكامل",
-                specialtyLabel: "التخصص",
-                registrationLabel: "رقم التسجيل",
-                experienceLabel: "سنوات الخبرة",
-                platformInfoTitle: "معلومات المنصة",
-                creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
-                universityInfo: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
-                contactLabel: "للتواصل",
-                yearLabel: "السنة",
-                engineerName: "المهندس المسجل",
-                engineerSpecialty: "التصميم المعماري",
-                
-                // رسائل
-                confirmDelete: "هل أنت متأكد من حذف هذا التصميم؟",
-                designUploaded: "تم رفع التصميم بنجاح وسيتم مراجعته من قبل البلدية",
-                messageSent: "تم إرسال الرسالة بنجاح",
-                loginSuccess: "تم تسجيل الدخول بنجاح!",
-                
-                // تذييل الصفحة
-                footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - لوحة تحكم المهندس"
-            },
-            fr: {
-                // شاشة تسجيل الدخول
-                loginTitle: "Tableau de bord de l'ingénieur",
-                loginSubtitle: "Connectez-vous en entrant uniquement le mot de passe",
-                passwordLabel: "Mot de passe",
-                passwordHint: "Mot de passe: 00000000",
-                loginText: "Accéder au tableau de bord",
-                backText: "Retour à la page d'accueil",
-                logoutText: "Déconnexion",
-                
-                // لوحة التحكم
-                dashboardTitle: "Tableau de bord de l'ingénieur",
-                refreshText: "Actualiser les données",
-                
-                // علامات التبويب
-                tabDesignsText: "Mes designs",
-                tabUploadText: "Télécharger un nouveau design",
-                tabChatText: "Conversations",
-                tabProfileText: "Profil",
-                
-                // تبويب التصاميم
-                myDesignsTitle: "Mes designs affichés",
-                editText: "Modifier",
-                deleteText: "Supprimer",
-                votesText: "votes",
-                noDesignsText: "Aucun design affiché. Commencez par télécharger votre premier design!",
-                
-                // تبويب الرفع
-                uploadTitle: "Télécharger un nouveau design",
-                designNameLabel: "Nom du design",
-                designDescriptionLabel: "Description du design",
-                designFilesLabel: "Fichiers du design",
-                fileUploadText: "Cliquez pour télécharger des fichiers ou faites-les glisser ici",
-                fileTypesText: "(PDF, JPG, PNG, DWG - Maximum: 10MB par fichier)",
-                uploadBtnText: "Télécharger le design",
-                instructionsTitle: "Instructions de téléchargement",
-                instruction1: "Le design doit être au format PDF, images JPG/PNG ou fichiers DWG",
-                instruction2: "Le design doit contenir tous les détails techniques nécessaires",
-                instruction3: "Le design sera examiné par la municipalité avant d'être affiché pour le vote",
-                instruction4: "Vous pouvez télécharger plusieurs fichiers par design (plans, façades, coupes)",
-                
-                // تبويب المحادثات
-                chatTitle: "Conversations avec la municipalité",
-                municipalityTitle: "Municipalité",
-                selectConversationText: "Sélectionnez une conversation",
-                sendText: "Envoyer",
-                noConversationsText: "Aucune conversation pour le moment. Commencez une nouvelle conversation!",
-                noMessagesText: "Aucun message pour le moment. Commencez la conversation maintenant!",
-                
-                // تبويب الملف الشخصي
-                profileTitle: "Profil",
-                personalInfoTitle: "Informations personnelles",
-                fullNameLabel: "Nom complet",
-                specialtyLabel: "Spécialité",
-                registrationLabel: "Numéro d'enregistrement",
-                experienceLabel: "Années d'expérience",
-                platformInfoTitle: "Informations sur la plateforme",
-                creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
-                universityInfo: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
-                contactLabel: "Contact",
-                yearLabel: "Année",
-                engineerName: "Ingénieur enregistré",
-                engineerSpecialty: "Design architectural",
-                
-                // رسائل
-                confirmDelete: "Êtes-vous sûr de vouloir supprimer ce design?",
-                designUploaded: "Design téléchargé avec succès et sera examiné par la municipalité",
-                messageSent: "Message envoyé avec succès",
-                loginSuccess: "Connexion réussie!",
-                
-                // تذييل الصفحة
-                footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Tableau de bord de l'ingénieur"
-            }
-        };
-        
-        // الحالة الحالية
-        let currentLang = 'ar';
-        let isLoggedIn = false;
-        
-        // تهيئة الصفحة عند التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            // تعيين اللغة المحفوظة
-            currentLang = loadLanguage();
-            
-            // تعيين السنة الحالية
-            const currentYear = new Date().getFullYear();
-            document.getElementById('current-year').textContent = currentYear;
-            document.getElementById('footer-year').textContent = currentYear;
-            
-            // تطبيق اللغة
-            applyLanguage();
-            
-            // التحقق من تسجيل الدخول
-            checkLoginStatus();
-            
-            // إعداد مستمعي الأحداث
-            setupEventListeners();
-        });
-        
-        // التحقق من حالة تسجيل الدخول
-        function checkLoginStatus() {
-            const savedLogin = localStorage.getItem('elwajiha_engineer_login');
-            if (savedLogin === 'true') {
-                isLoggedIn = true;
-                showDashboard();
-            } else {
-                showLoginScreen();
-            }
-        }
+        // تعيين السنة الحالية
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year').textContent = currentYear;
+        document.getElementById('footer-year').textContent = currentYear;
         
         // تطبيق اللغة
-        function applyLanguage() {
-            const t = translations[currentLang];
-            
-            // تحديث جميع النصوص
-            updateAllTexts(t);
-            
-            // تحديث أزرار اللغة
-            updateLanguageButtons();
-            
-            // إذا كانت لوحة التحكم ظاهرة، قم بتحديث البيانات
-            if (isLoggedIn) {
-                loadMyDesigns();
-            }
-        }
+        applyLanguage();
         
-        // تحديث جميع النصوص
-        function updateAllTexts(t) {
-            // تحديث العناصر الموجودة
-            const elementsToUpdate = [
-                'login-title', 'login-subtitle', 'password-label', 'password-hint',
-                'login-text', 'back-text', 'logout-text', 'dashboard-title',
-                'refresh-text', 'tab-designs-text', 'tab-upload-text', 'tab-chat-text',
-                'tab-profile-text', 'my-designs-title', 'upload-title', 'design-name-label',
-                'design-description-label', 'design-files-label', 'file-upload-text',
-                'file-types-text', 'upload-btn-text', 'instructions-title', 'instruction1',
-                'instruction2', 'instruction3', 'instruction4', 'chat-title', 'municipality-title',
-                'select-conversation-text', 'send-text', 'profile-title', 'personal-info-title',
-                'full-name-label', 'specialty-label', 'registration-label', 'experience-label',
-                'platform-info-title', 'creator-info', 'university-info', 'contact-label',
-                'year-label', 'engineer-name-display', 'engineer-specialty-display',
-                'full-name-value', 'specialty-value', 'footer-copyright'
-            ];
-            
-            elementsToUpdate.forEach(id => {
-                const element = document.getElementById(id);
-                if (element && t[id]) {
-                    if (id === 'footer-copyright') {
-                        const year = new Date().getFullYear();
-                        element.textContent = t[id].replace('YEAR', year);
-                    } else {
-                        element.textContent = t[id];
-                    }
-                }
-            });
-        }
-        
-        // تحديث أزرار اللغة
-        function updateLanguageButtons() {
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                const lang = btn.getAttribute('data-lang');
-                btn.classList.toggle('active', lang === currentLang);
-            });
-        }
+        // التحقق من تسجيل الدخول
+        checkLoginStatus();
         
         // إعداد مستمعي الأحداث
-        function setupEventListeners() {
-            // نموذج تسجيل الدخول
-            document.getElementById('login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const password = document.getElementById('engineer-password').value;
-                const correctPassword = '00000000';
-                
-                if (password === correctPassword) {
-                    isLoggedIn = true;
-                    localStorage.setItem('elwajiha_engineer_login', 'true');
-                    showDashboard();
-                    alert(currentLang === 'ar' ? 'تم تسجيل الدخول بنجاح!' : 'Connexion réussie!');
-                } else {
-                    alert(currentLang === 'ar' ? 'كلمة المرور غير صحيحة!' : 'Mot de passe incorrect!');
-                }
-            });
-            
-            // زر تسجيل الخروج
-            document.getElementById('logout-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                logout();
-            });
-            
-            // أزرار اللغة
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const lang = this.getAttribute('data-lang');
-                    currentLang = lang;
-                    localStorage.setItem('elwajiha_language', lang);
-                    applyLanguage();
-                });
-            });
-            
-            // أزرار علامات التبويب
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // تحديث الأزرار النشطة
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // إظهار المحتوى المناسب
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // تحميل بيانات التبويب
-                    if (tabId === 'my-designs-tab') {
-                        loadMyDesigns();
-                    } else if (tabId === 'chat-tab') {
-                        loadConversations();
-                    }
-                });
-            });
-            
-            // منطقة رفع الملفات
-            const fileUploadArea = document.getElementById('file-upload-area');
-            const designFilesInput = document.getElementById('design-files');
-            
-            fileUploadArea.addEventListener('click', function() {
-                designFilesInput.click();
-            });
-            
-            designFilesInput.addEventListener('change', function() {
-                displaySelectedFiles(this.files);
-            });
-            
-            // نموذج رفع التصميم
-            document.getElementById('upload-design-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                uploadDesign();
-            });
-            
-            // زر إرسال الرسالة
-            document.getElementById('send-btn').addEventListener('click', sendMessage);
-            
-            // زر تحديث البيانات
-            document.getElementById('refresh-btn').addEventListener('click', refreshData);
-        }
-        
-        // تسجيل الخروج
-        function logout() {
-            isLoggedIn = false;
-            localStorage.removeItem('elwajiha_engineer_login');
+        setupEventListeners();
+    });
+    
+    // التحقق من حالة تسجيل الدخول
+    function checkLoginStatus() {
+        const savedLogin = localStorage.getItem('elwajiha_engineer_login');
+        if (savedLogin === 'true') {
+            isLoggedIn = true;
+            showDashboard();
+        } else {
             showLoginScreen();
         }
+    }
+    
+    // تطبيق اللغة
+    function applyLanguage() {
+        const t = translations[currentLang];
         
-        // إظهار شاشة تسجيل الدخول
-        function showLoginScreen() {
-            document.getElementById('login-screen').style.display = 'flex';
-            document.getElementById('navbar').style.display = 'none';
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('footer').style.display = 'none';
-        }
+        // تحديث جميع النصوص
+        updateAllTexts(t);
         
-        // إظهار لوحة التحكم
-        function showDashboard() {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('navbar').style.display = 'block';
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('footer').style.display = 'block';
-            
-            // تحميل البيانات
+        // تحديث أزرار اللغة
+        updateLanguageButtons();
+        
+        // تحديث تسميات الأزرار
+        document.getElementById('lang-ar').textContent = t.arabicBtn;
+        document.getElementById('lang-fr').textContent = t.frenchBtn;
+        
+        // إذا كانت لوحة التحكم ظاهرة، قم بتحديث البيانات
+        if (isLoggedIn) {
             loadMyDesigns();
         }
+    }
+    
+    // تحديث جميع النصوص
+    function updateAllTexts(t) {
+        // تحديث العناصر النصية مباشرة
+        const elementsToUpdate = [
+            {id: 'login-title', text: t.loginTitle},
+            {id: 'login-subtitle', text: t.loginSubtitle},
+            {id: 'password-label', text: t.passwordLabel},
+            {id: 'password-hint', text: t.passwordHint},
+            {id: 'login-text', text: t.loginText},
+            {id: 'back-text', text: t.backText},
+            {id: 'logout-text', text: t.logoutText},
+            {id: 'user-type', text: t.userType},
+            {id: 'dashboard-title', text: t.dashboardTitle},
+            {id: 'refresh-text', text: t.refreshText},
+            {id: 'tab-designs-text', text: t.tabDesignsText},
+            {id: 'tab-upload-text', text: t.tabUploadText},
+            {id: 'tab-chat-text', text: t.tabChatText},
+            {id: 'tab-profile-text', text: t.tabProfileText},
+            {id: 'my-designs-title', text: t.myDesignsTitle},
+            {id: 'upload-title', text: t.uploadTitle},
+            {id: 'design-name-label', text: t.designNameLabel},
+            {id: 'design-description-label', text: t.designDescriptionLabel},
+            {id: 'design-files-label', text: t.designFilesLabel},
+            {id: 'file-upload-text', text: t.fileUploadText},
+            {id: 'file-types-text', text: t.fileTypesText},
+            {id: 'upload-btn-text', text: t.uploadBtnText},
+            {id: 'instructions-title', text: t.instructionsTitle},
+            {id: 'instruction1', text: t.instruction1},
+            {id: 'instruction2', text: t.instruction2},
+            {id: 'instruction3', text: t.instruction3},
+            {id: 'instruction4', text: t.instruction4},
+            {id: 'chat-title', text: t.chatTitle},
+            {id: 'municipality-title', text: t.municipalityTitle},
+            {id: 'select-conversation-text', text: t.selectConversationText},
+            {id: 'send-text', text: t.sendText},
+            {id: 'profile-title', text: t.profileTitle},
+            {id: 'personal-info-title', text: t.personalInfoTitle},
+            {id: 'full-name-label', text: t.fullNameLabel},
+            {id: 'specialty-label', text: t.specialtyLabel},
+            {id: 'registration-label', text: t.registrationLabel},
+            {id: 'experience-label', text: t.experienceLabel},
+            {id: 'platform-info-title', text: t.platformInfoTitle},
+            {id: 'creator-info', text: t.creatorInfo},
+            {id: 'university-info', text: t.universityInfo},
+            {id: 'contact-label', text: t.contactLabel},
+            {id: 'year-label', text: t.yearLabel},
+            {id: 'engineer-name-display', text: t.engineerName},
+            {id: 'engineer-specialty-display', text: t.engineerSpecialty},
+            {id: 'full-name-value', text: t.fullNameValue},
+            {id: 'specialty-value', text: t.specialtyValue},
+            {id: 'registration-value', text: t.registrationValue},
+            {id: 'experience-value', text: t.experienceValue}
+        ];
         
-        // تحميل التصاميم الخاصة بالمهندس
-        function loadMyDesigns() {
-            const designs = [
-                {
-                    id: 1,
-                    title: "تصميم حديقة عامة في بلدية الجزائر الوسطى",
-                    title_fr: "Design de jardin public dans la municipalité d'Alger Centre",
-                    votes: 125,
-                    date: "2023-10-15",
-                    description: "تصميم حديث لحديقة عامة تتضمن مساحات خضراء ومناطق لعب للأطفال وممرات للمشاة.",
-                    description_fr: "Design moderne d'un jardin public comprenant des espaces verts, des aires de jeux pour enfants et des sentiers piétonniers."
-                },
-                {
-                    id: 2,
-                    title: "تصميم ساحة ترفيهية في القبة",
-                    title_fr: "Design d'une place de loisirs à El Qobba",
-                    votes: 89,
-                    date: "2023-10-10",
-                    description: "ساحة ترفيهية تحتوي على مسرح مفتوح ومقاهي ومناطق استراحة للعائلات.",
-                    description_fr: "Place de loisirs comprenant un théâtre en plein air, des cafés et des zones de détente pour les familles."
-                }
-            ];
-            
-            const container = document.getElementById('my-designs-container');
-            container.innerHTML = '';
-            
-            if (designs.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--gray-color);">
-                        <i class="fas fa-drafting-compass" style="font-size: 4rem; margin-bottom: 20px;"></i>
-                        <h3>${currentLang === 'ar' ? 'لا توجد تصاميم معروضة' : 'Aucun design affiché'}</h3>
-                        <p>${currentLang === 'ar' ? 'ابدأ برفع تصميمك الأول!' : 'Commencez par télécharger votre premier design!'}</p>
-                    </div>
-                `;
-                return;
+        elementsToUpdate.forEach(item => {
+            const element = document.getElementById(item.id);
+            if (element) {
+                element.textContent = item.text;
             }
+        });
+        
+        // تحديث حقل الإدخال في المحادثة
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            messageInput.placeholder = t.messagePlaceholder;
+        }
+        
+        // تحديث تذييل الصفحة
+        const footerCopyright = document.getElementById('footer-copyright');
+        if (footerCopyright) {
+            const year = new Date().getFullYear();
+            footerCopyright.textContent = t.footerCopyright.replace('YEAR', year);
+        }
+    }
+    
+    // تحديث أزرار اللغة
+    function updateLanguageButtons() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const lang = btn.getAttribute('data-lang');
+            btn.classList.toggle('active', lang === currentLang);
+        });
+    }
+    
+    // إعداد مستمعي الأحداث
+    function setupEventListeners() {
+        // نموذج تسجيل الدخول
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            designs.forEach(design => {
-                const designCard = document.createElement('div');
-                designCard.className = 'design-card';
-                
-                designCard.innerHTML = `
-                    <div class="design-image">
-                        <i class="fas fa-drafting-compass" style="font-size: 3rem;"></i>
-                    </div>
-                    <div class="design-info">
-                        <h3 class="design-title">${currentLang === 'ar' ? design.title : design.title_fr}</h3>
-                        <div class="design-stats">
-                            <span><i class="fas fa-calendar-alt"></i> ${design.date}</span>
-                            <span><i class="fas fa-vote-yea"></i> ${design.votes} ${currentLang === 'ar' ? 'صوت' : 'votes'}</span>
-                        </div>
-                        <p style="color: var(--gray-color); margin-bottom: 15px;">${currentLang === 'ar' ? design.description : design.description_fr}</p>
-                        <div class="design-actions">
-                            <button class="design-action-btn edit-btn" onclick="editDesign(${design.id})">
-                                <i class="fas fa-edit"></i> ${currentLang === 'ar' ? 'تعديل' : 'Modifier'}
-                            </button>
-                            <button class="design-action-btn delete-btn" onclick="deleteDesign(${design.id})">
-                                <i class="fas fa-trash"></i> ${currentLang === 'ar' ? 'حذف' : 'Supprimer'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(designCard);
+            const password = document.getElementById('engineer-password').value;
+            const correctPassword = '00000000';
+            
+            if (password === correctPassword) {
+                isLoggedIn = true;
+                localStorage.setItem('elwajiha_engineer_login', 'true');
+                showDashboard();
+                alert(translations[currentLang].loginSuccess);
+            } else {
+                alert(translations[currentLang].loginError);
+            }
+        });
+        
+        // زر تسجيل الخروج
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+        
+        // أزرار اللغة
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                currentLang = lang;
+                localStorage.setItem('elwajiha_language', lang);
+                applyLanguage();
             });
-        }
+        });
         
-        // عرض الملفات المحددة
-        function displaySelectedFiles(files) {
-            const container = document.getElementById('selected-files');
-            container.innerHTML = '';
-            
-            if (files.length === 0) return;
-            
-            const fileList = document.createElement('div');
-            fileList.style.border = '1px solid #ddd';
-            fileList.style.borderRadius = 'var(--border-radius)';
-            fileList.style.padding = '15px';
-            
-            const title = document.createElement('p');
-            title.style.fontWeight = '600';
-            title.style.marginBottom = '10px';
-            title.textContent = currentLang === 'ar' ? 'الملفات المحددة:' : 'Fichiers sélectionnés:';
-            fileList.appendChild(title);
-            
-            for (let i = 0; i < files.length; i++) {
-                const fileItem = document.createElement('div');
-                fileItem.style.display = 'flex';
-                fileItem.style.justifyContent = 'space-between';
-                fileItem.style.alignItems = 'center';
-                fileItem.style.padding = '8px 0';
-                fileItem.style.borderBottom = i < files.length - 1 ? '1px solid #eee' : 'none';
+        // أزرار علامات التبويب
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
                 
-                const fileInfo = document.createElement('div');
-                fileInfo.innerHTML = `
-                    <div><i class="fas fa-file"></i> ${files[i].name}</div>
-                    <div style="font-size: 0.8rem; color: var(--gray-color);">${(files[i].size / 1024 / 1024).toFixed(2)} MB</div>
-                `;
+                // تحديث الأزرار النشطة
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
                 
-                const removeBtn = document.createElement('button');
-                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                removeBtn.style.background = 'none';
-                removeBtn.style.border = 'none';
-                removeBtn.style.cursor = 'pointer';
-                removeBtn.style.color = 'var(--secondary-color)';
-                
-                removeBtn.addEventListener('click', function() {
-                    // في تطبيق حقيقي، هنا سيتم إزالة الملف من القائمة
-                    alert(currentLang === 'ar' ? 'تمت إزالة الملف' : 'Fichier supprimé');
-                    container.innerHTML = '';
+                // إظهار المحتوى المناسب
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
                 });
+                document.getElementById(tabId).classList.add('active');
                 
-                fileItem.appendChild(fileInfo);
-                fileItem.appendChild(removeBtn);
-                fileList.appendChild(fileItem);
-            }
-            
-            container.appendChild(fileList);
-        }
+                // تحميل بيانات التبويب
+                if (tabId === 'my-designs-tab') {
+                    loadMyDesigns();
+                } else if (tabId === 'chat-tab') {
+                    loadConversations();
+                }
+            });
+        });
         
-        // رفع تصميم جديد
-        function uploadDesign() {
-            const designName = document.getElementById('design-name').value.trim();
-            const designDescription = document.getElementById('design-description').value.trim();
-            
-            if (!designName || !designDescription) {
-                alert(currentLang === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : 'Veuillez remplir tous les champs obligatoires');
-                return;
-            }
-            
-            alert(currentLang === 'ar' ? 'تم رفع التصميم بنجاح وسيتم مراجعته من قبل البلدية' : 'Design téléchargé avec succès et sera examiné par la municipalité');
-            
-            // إعادة تعيين النموذج
-            document.getElementById('upload-design-form').reset();
-            document.getElementById('selected-files').innerHTML = '';
-        }
+        // منطقة رفع الملفات
+        const fileUploadArea = document.getElementById('file-upload-area');
+        const designFilesInput = document.getElementById('design-files');
         
-        // تحميل المحادثات
-        function loadConversations() {
-            const conversationsList = document.getElementById('conversations-list');
-            conversationsList.innerHTML = `
-                <div style="padding: 15px; border-bottom: 1px solid #ddd; cursor: pointer; transition: background-color 0.3s;" onclick="loadChat()">
-                    <h4 style="margin-bottom: 5px;">${currentLang === 'ar' ? 'البلدية' : 'Municipalité'}</h4>
-                    <p style="color: var(--gray-color); font-size: 0.9rem;">${currentLang === 'ar' ? 'المحادثة الرئيسية مع البلدية' : 'Conversation principale avec la municipalité'}</p>
+        fileUploadArea.addEventListener('click', function() {
+            designFilesInput.click();
+        });
+        
+        designFilesInput.addEventListener('change', function() {
+            displaySelectedFiles(this.files);
+        });
+        
+        // نموذج رفع التصميم
+        document.getElementById('upload-design-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            uploadDesign();
+        });
+        
+        // زر إرسال الرسالة
+        document.getElementById('send-btn').addEventListener('click', sendMessage);
+        
+        // زر تحديث البيانات
+        document.getElementById('refresh-btn').addEventListener('click', refreshData);
+    }
+    
+    // تسجيل الخروج
+    function logout() {
+        isLoggedIn = false;
+        localStorage.removeItem('elwajiha_engineer_login');
+        showLoginScreen();
+    }
+    
+    // إظهار شاشة تسجيل الدخول
+    function showLoginScreen() {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('navbar').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+    }
+    
+    // إظهار لوحة التحكم
+    function showDashboard() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('navbar').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        
+        // تحميل البيانات
+        loadMyDesigns();
+    }
+    
+    // تحميل التصاميم الخاصة بالمهندس
+    function loadMyDesigns() {
+        const designs = [
+            {
+                id: 1,
+                title: translations[currentLang].tabDesignsText + " 1",
+                title_fr: "Design 1",
+                votes: 125,
+                date: "2025-10-15",
+                description: currentLang === 'ar' ? 
+                    "تصميم حديث يتضمن مساحات خضراء ومناطق لعب للأطفال وممرات للمشاة." :
+                    "Design moderne comprenant des espaces verts, des aires de jeux pour enfants et des sentiers piétonniers."
+            },
+            {
+                id: 2,
+                title: translations[currentLang].tabDesignsText + " 2",
+                title_fr: "Design 2",
+                votes: 89,
+                date: "2025-10-10",
+                description: currentLang === 'ar' ?
+                    "ساحة ترفيهية تحتوي على مسرح مفتوح ومقاهي ومناطق استراحة للعائلات." :
+                    "Place de loisirs comprenant un théâtre en plein air, des cafés et des zones de détente pour les familles."
+            }
+        ];
+        
+        const container = document.getElementById('my-designs-container');
+        container.innerHTML = '';
+        
+        if (designs.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--gray-color);">
+                    <i class="fas fa-drafting-compass" style="font-size: 4rem; margin-bottom: 20px;"></i>
+                    <h3>${translations[currentLang].noDesignsText.split('.')[0]}</h3>
+                    <p>${translations[currentLang].noDesignsText.split('.')[1] || ''}</p>
                 </div>
             `;
+            return;
         }
         
-        // تحميل المحادثة
-        function loadChat() {
-            document.getElementById('chat-header').innerHTML = `<span>${currentLang === 'ar' ? 'المحادثة مع البلدية' : 'Conversation avec la municipalité'}</span>`;
+        designs.forEach(design => {
+            const designCard = document.createElement('div');
+            designCard.className = 'design-card';
             
-            // تفعيل حقل الإدخال
-            document.getElementById('message-input').disabled = false;
-            document.getElementById('send-btn').disabled = false;
-            document.getElementById('message-input').placeholder = currentLang === 'ar' ? 'اكتب رسالتك هنا...' : 'Tapez votre message ici...';
-            
-            // عرض رسالة افتراضية
-            const chatMessages = document.getElementById('chat-messages');
-            chatMessages.innerHTML = `
-                <div class="message received">
-                    <div style="font-weight: 600; margin-bottom: 5px;">${currentLang === 'ar' ? 'البلدية' : 'Municipalité'}</div>
-                    <div>${currentLang === 'ar' ? 'مرحباً، كيف يمكنني مساعدتك؟' : 'Bonjour, comment puis-je vous aider?'}</div>
-                    <div class="message-time">10:30 - ${new Date().toISOString().split('T')[0]}</div>
+            designCard.innerHTML = `
+                <div class="design-image">
+                    <i class="fas fa-drafting-compass" style="font-size: 3rem;"></i>
+                </div>
+                <div class="design-info">
+                    <h3 class="design-title">${currentLang === 'ar' ? design.title : design.title_fr}</h3>
+                    <div class="design-stats">
+                        <span><i class="fas fa-calendar-alt"></i> ${design.date}</span>
+                        <span><i class="fas fa-vote-yea"></i> ${design.votes} ${translations[currentLang].votesText}</span>
+                    </div>
+                    <p style="color: var(--gray-color); margin-bottom: 15px;">${design.description}</p>
+                    <div class="design-actions">
+                        <button class="design-action-btn edit-btn" onclick="editDesign(${design.id})">
+                            <i class="fas fa-edit"></i> ${translations[currentLang].editText}
+                        </button>
+                        <button class="design-action-btn delete-btn" onclick="deleteDesign(${design.id})">
+                            <i class="fas fa-trash"></i> ${translations[currentLang].deleteText}
+                        </button>
+                    </div>
                 </div>
             `;
+            
+            container.appendChild(designCard);
+        });
+    }
+    
+    // عرض الملفات المحددة
+    function displaySelectedFiles(files) {
+        const container = document.getElementById('selected-files');
+        container.innerHTML = '';
+        
+        if (files.length === 0) return;
+        
+        const fileList = document.createElement('div');
+        fileList.style.border = '1px solid #ddd';
+        fileList.style.borderRadius = 'var(--border-radius)';
+        fileList.style.padding = '15px';
+        
+        const title = document.createElement('p');
+        title.style.fontWeight = '600';
+        title.style.marginBottom = '10px';
+        title.textContent = currentLang === 'ar' ? 'الملفات المحددة:' : 'Fichiers sélectionnés:';
+        fileList.appendChild(title);
+        
+        for (let i = 0; i < files.length; i++) {
+            const fileItem = document.createElement('div');
+            fileItem.style.display = 'flex';
+            fileItem.style.justifyContent = 'space-between';
+            fileItem.style.alignItems = 'center';
+            fileItem.style.padding = '8px 0';
+            fileItem.style.borderBottom = i < files.length - 1 ? '1px solid #eee' : 'none';
+            
+            const fileInfo = document.createElement('div');
+            fileInfo.innerHTML = `
+                <div><i class="fas fa-file"></i> ${files[i].name}</div>
+                <div style="font-size: 0.8rem; color: var(--gray-color);">${(files[i].size / 1024 / 1024).toFixed(2)} MB</div>
+            `;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            removeBtn.style.background = 'none';
+            removeBtn.style.border = 'none';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.style.color = 'var(--secondary-color)';
+            
+            removeBtn.addEventListener('click', function() {
+                alert(translations[currentLang].fileRemoved);
+                container.innerHTML = '';
+            });
+            
+            fileItem.appendChild(fileInfo);
+            fileItem.appendChild(removeBtn);
+            fileList.appendChild(fileItem);
         }
         
-        // إرسال رسالة
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input');
-            const messageText = messageInput.value.trim();
-            
-            if (!messageText) return;
-            
-            // إضافة الرسالة إلى العرض
-            const chatMessages = document.getElementById('chat-messages');
-            const messageEl = document.createElement('div');
-            messageEl.className = 'message sent';
-            messageEl.innerHTML = `
-                <div style="font-weight: 600; margin-bottom: 5px;">${currentLang === 'ar' ? 'المهندس' : 'Ingénieur'}</div>
-                <div>${messageText}</div>
+        container.appendChild(fileList);
+    }
+    
+    // رفع تصميم جديد
+    function uploadDesign() {
+        const t = translations[currentLang];
+        const designName = document.getElementById('design-name').value.trim();
+        const designDescription = document.getElementById('design-description').value.trim();
+        
+        if (!designName || !designDescription) {
+            alert(t.fillRequiredFields);
+            return;
+        }
+        
+        alert(t.designUploaded);
+        
+        // إعادة تعيين النموذج
+        document.getElementById('upload-design-form').reset();
+        document.getElementById('selected-files').innerHTML = '';
+    }
+    
+    // تحميل المحادثات
+    function loadConversations() {
+        const conversationsList = document.getElementById('conversations-list');
+        conversationsList.innerHTML = `
+            <div style="padding: 15px; border-bottom: 1px solid #ddd; cursor: pointer; transition: background-color 0.3s;" onclick="loadChat()">
+                <h4 style="margin-bottom: 5px;">${translations[currentLang].municipalityTitle}</h4>
+                <p style="color: var(--gray-color); font-size: 0.9rem;">${currentLang === 'ar' ? 'المحادثة الرئيسية مع البلدية' : 'Conversation principale avec la municipalité'}</p>
+            </div>
+        `;
+    }
+    
+    // تحميل المحادثة
+    function loadChat() {
+        document.getElementById('chat-header').innerHTML = `<span>${translations[currentLang].chatTitle}</span>`;
+        
+        // تفعيل حقل الإدخال
+        document.getElementById('message-input').disabled = false;
+        document.getElementById('send-btn').disabled = false;
+        document.getElementById('message-input').placeholder = translations[currentLang].messagePlaceholder;
+        
+        // عرض رسالة افتراضية
+        const chatMessages = document.getElementById('chat-messages');
+        const greeting = currentLang === 'ar' ? 'مرحباً، كيف يمكنني مساعدتك؟' : 'Bonjour, comment puis-je vous aider?';
+        const response = currentLang === 'ar' ? 'شكراً على رسالتك، سنقوم بالرد عليك قريباً.' : 'Merci pour votre message, nous vous répondrons bientôt.';
+        
+        chatMessages.innerHTML = `
+            <div class="message received">
+                <div style="font-weight: 600; margin-bottom: 5px;">${translations[currentLang].municipalityTitle}</div>
+                <div>${greeting}</div>
+                <div class="message-time">10:30 - ${new Date().toISOString().split('T')[0]}</div>
+            </div>
+        `;
+        
+        // حفظ مرجع الرد للاستخدام لاحقاً
+        window.municipalityResponse = response;
+    }
+    
+    // إرسال رسالة
+    function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const messageText = messageInput.value.trim();
+        
+        if (!messageText) return;
+        
+        // إضافة الرسالة إلى العرض
+        const chatMessages = document.getElementById('chat-messages');
+        const messageEl = document.createElement('div');
+        messageEl.className = 'message sent';
+        messageEl.innerHTML = `
+            <div style="font-weight: 600; margin-bottom: 5px;">${translations[currentLang].userType}</div>
+            <div>${messageText}</div>
+            <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${new Date().toISOString().split('T')[0]}</div>
+        `;
+        chatMessages.appendChild(messageEl);
+        
+        // مسح حقل الإدخال
+        messageInput.value = '';
+        
+        // تمرير إلى أحدث رسالة
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // محاكاة رد البلدية بعد ثانيتين
+        setTimeout(() => {
+            const replyEl = document.createElement('div');
+            replyEl.className = 'message received';
+            replyEl.innerHTML = `
+                <div style="font-weight: 600; margin-bottom: 5px;">${translations[currentLang].municipalityTitle}</div>
+                <div>${window.municipalityResponse || (currentLang === 'ar' ? 'شكراً على رسالتك، سنقوم بالرد عليك قريباً.' : 'Merci pour votre message, nous vous répondrons bientôt.')}</div>
                 <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${new Date().toISOString().split('T')[0]}</div>
             `;
-            chatMessages.appendChild(messageEl);
-            
-            // مسح حقل الإدخال
-            messageInput.value = '';
-            
-            // تمرير إلى أحدث رسالة
+            chatMessages.appendChild(replyEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // محاكاة رد البلدية بعد ثانيتين
-            setTimeout(() => {
-                const replyEl = document.createElement('div');
-                replyEl.className = 'message received';
-                replyEl.innerHTML = `
-                    <div style="font-weight: 600; margin-bottom: 5px;">${currentLang === 'ar' ? 'البلدية' : 'Municipalité'}</div>
-                    <div>${currentLang === 'ar' ? 'شكراً على رسالتك، سنقوم بالرد عليك قريباً.' : 'Merci pour votre message, nous vous répondrons bientôt.'}</div>
-                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${new Date().toISOString().split('T')[0]}</div>
-                `;
-                chatMessages.appendChild(replyEl);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 2000);
-            
-            alert(currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message envoyé avec succès');
-        }
+        }, 2000);
         
-        // تحديث البيانات
-        function refreshData() {
+        alert(translations[currentLang].messageSent);
+    }
+    
+    // تحديث البيانات
+    function refreshData() {
+        loadMyDesigns();
+        alert(translations[currentLang].dataUpdated);
+    }
+    
+    // وظائف للاستخدام في HTML
+    window.editDesign = function(designId) {
+        alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
+    };
+    
+    window.deleteDesign = function(designId) {
+        if (confirm(translations[currentLang].confirmDelete)) {
+            alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
             loadMyDesigns();
-            alert(currentLang === 'ar' ? 'تم تحديث البيانات' : 'Données actualisées');
         }
-        
-        // وظائف للاستخدام في HTML
-        window.editDesign = function(designId) {
-            alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
-        };
-        
-        window.deleteDesign = function(designId) {
-            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا التصميم؟' : 'Êtes-vous sûr de vouloir supprimer ce design?')) {
-                alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
-                loadMyDesigns();
-            }
-        };
-    </script>
+    };
+</script>
 </body>
 </html>

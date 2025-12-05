@@ -799,709 +799,782 @@
         </div>
     </footer>
 
-    <script>
-        // تحميل اللغة المحفوظة
-        function loadLanguage() {
-            return localStorage.getItem('elwajiha_language') || 'ar';
+<script>
+    // تحميل اللغة المحفوظة
+    function loadLanguage() {
+        return localStorage.getItem('elwajiha_language') || 'ar';
+    }
+    
+    // نص الترجمة الكامل
+    const translations = {
+        ar: {
+            // شاشة تسجيل الدخول
+            loginTitle: "لوحة تحكم البلدية",
+            loginSubtitle: "يجب إدخال رمز الدخول للوصول إلى لوحة التحكم",
+            passwordLabel: "رمز الدخول السري",
+            passwordHint: "الرمز السري: 00000000",
+            loginText: "دخول إلى لوحة التحكم",
+            backText: "العودة إلى الصفحة الرئيسية",
+            
+            // شريط التنقل
+            logoutText: "تسجيل الخروج",
+            userType: "بلدية",
+            arabicBtn: "العربية",
+            frenchBtn: "Français",
+            
+            // لوحة التحكم
+            dashboardTitle: "لوحة تحكم البلدية",
+            refreshText: "تحديث البيانات",
+            statVotersLabel: "إجمالي المصوتين",
+            statDesignsLabel: "إجمالي التصاميم",
+            statVotesLabel: "إجمالي الأصوات",
+            statParticipationLabel: "معدل المشاركة",
+            
+            // علامات التبويب
+            tabVotersText: "المصوتون",
+            tabDesignsText: "إدارة التصاميم",
+            tabChatText: "المحادثات",
+            tabStatsText: "الإحصائيات",
+            tabSettingsText: "الإعدادات",
+            
+            // تبويب المصوتين
+            votersTitle: "قاعدة بيانات المصوتين",
+            thName: "الاسم الكامل",
+            thCadastral: "رقم الدفتر العقاري",
+            thDesign: "التصميم المختار",
+            thDate: "تاريخ التصويت",
+            thActions: "الإجراءات",
+            viewText: "عرض",
+            deleteText: "حذف",
+            noVotersText: "لا يوجد مصوتون حتى الآن",
+            
+            // تبويب التصاميم
+            designsTitle: "إدارة التصاميم المعروضة",
+            addDesignText: "إضافة تصميم جديد",
+            thDesignName: "اسم التصميم",
+            thEngineer: "المهندس",
+            thDesignDate: "تاريخ النشر",
+            thVotesCount: "عدد الأصوات",
+            thDesignActions: "الإجراءات",
+            editText: "تعديل",
+            noDesignsText: "لا توجد تصاميم معروضة",
+            
+            // تبويب المحادثات
+            chatTitle: "المحادثات مع المهندسين",
+            engineersTitle: "المهندسون",
+            selectEngineerText: "اختر مهندساً للمحادثة",
+            sendText: "إرسال",
+            messagePlaceholder: "اكتب رسالتك هنا...",
+            noEngineersText: "لا يوجد مهندسون مسجلون",
+            noMessagesText: "لا توجد رسائل بعد. ابدأ المحادثة الآن!",
+            
+            // تبويب الإحصائيات
+            statsTitle: "إحصائيات التصويت",
+            votesChartTitle: "توزيع الأصوات على التصاميم",
+            dailyChartTitle: "نشاط التصويت اليومي",
+            
+            // تبويب الإعدادات
+            settingsTitle: "إعدادات المنصة",
+            platformSettingsTitle: "إعدادات المنصة",
+            platformNameLabel: "اسم المنصة",
+            deadlineLabel: "موعد انتهاء التصويت",
+            saveSettingsText: "حفظ الإعدادات",
+            infoTitle: "معلومات المبادرة",
+            creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
+            universityInfo: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
+            phoneLabel: "هاتف",
+            emailLabel: "بريد إلكتروني",
+            yearLabel: "السنة",
+            
+            // تذييل الصفحة
+            footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - لوحة تحكم البلدية",
+            
+            // رسائل
+            confirmDeleteVoter: "هل أنت متأكد من حذف هذا السجل؟",
+            confirmDeleteDesign: "هل أنت متأكد من حذف هذا التصميم؟",
+            designAdded: "تمت إضافة التصميم بنجاح",
+            settingsSaved: "تم حفظ الإعدادات بنجاح",
+            messageSent: "تم إرسال الرسالة بنجاح",
+            loginError: "رمز الدخول غير صحيح!",
+            dataUpdated: "تم تحديث البيانات",
+            loginSuccess: "تم تسجيل الدخول بنجاح!"
+        },
+        fr: {
+            // شاشة تسجيل الدخول
+            loginTitle: "Tableau de bord municipal",
+            loginSubtitle: "Veuillez entrer le code d'accès pour accéder au tableau de bord",
+            passwordLabel: "Code d'accès sécurisé",
+            passwordHint: "Code secret: 00000000",
+            loginText: "Accéder au tableau de bord",
+            backText: "Retour à la page d'accueil",
+            
+            // شريط التنقل
+            logoutText: "Déconnexion",
+            userType: "Municipalité",
+            arabicBtn: "العربية",
+            frenchBtn: "Français",
+            
+            // لوحة التحكم
+            dashboardTitle: "Tableau de bord municipal",
+            refreshText: "Actualiser les données",
+            statVotersLabel: "Total des électeurs",
+            statDesignsLabel: "Total des designs",
+            statVotesLabel: "Total des votes",
+            statParticipationLabel: "Taux de participation",
+            
+            // علامات التبويب
+            tabVotersText: "Électeurs",
+            tabDesignsText: "Gestion des designs",
+            tabChatText: "Conversations",
+            tabStatsText: "Statistiques",
+            tabSettingsText: "Paramètres",
+            
+            // تبويب المصوتين
+            votersTitle: "Base de données des électeurs",
+            thName: "Nom complet",
+            thCadastral: "Numéro cadastral",
+            thDesign: "Design choisi",
+            thDate: "Date de vote",
+            thActions: "Actions",
+            viewText: "Voir",
+            deleteText: "Supprimer",
+            noVotersText: "Aucun électeur pour le moment",
+            
+            // تبويب التصاميم
+            designsTitle: "Gestion des designs affichés",
+            addDesignText: "Ajouter un nouveau design",
+            thDesignName: "Nom du design",
+            thEngineer: "Ingénieur",
+            thDesignDate: "Date de publication",
+            thVotesCount: "Nombre de votes",
+            thDesignActions: "Actions",
+            editText: "Modifier",
+            noDesignsText: "Aucun design affiché",
+            
+            // تبويب المحادثات
+            chatTitle: "Conversations avec les ingénieurs",
+            engineersTitle: "Ingénieurs",
+            selectEngineerText: "Sélectionnez un ingénieur pour discuter",
+            sendText: "Envoyer",
+            messagePlaceholder: "Tapez votre message ici...",
+            noEngineersText: "Aucun ingénieur enregistré",
+            noMessagesText: "Aucun message pour le moment. Commencez la conversation maintenant!",
+            
+            // تبويب الإحصائيات
+            statsTitle: "Statistiques de vote",
+            votesChartTitle: "Répartition des votes par design",
+            dailyChartTitle: "Activité de vote quotidienne",
+            
+            // تبويب الإعدادات
+            settingsTitle: "Paramètres de la plateforme",
+            platformSettingsTitle: "Paramètres de la plateforme",
+            platformNameLabel: "Nom de la plateforme",
+            deadlineLabel: "Date limite de vote",
+            saveSettingsText: "Enregistrer les paramètres",
+            infoTitle: "Informations sur l'initiative",
+            creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
+            universityInfo: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
+            phoneLabel: "Téléphone",
+            emailLabel: "Email",
+            yearLabel: "Année",
+            
+            // تذييل الصفحة
+            footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Tableau de bord municipal",
+            
+            // رسائل
+            confirmDeleteVoter: "Êtes-vous sûr de vouloir supprimer cet enregistrement?",
+            confirmDeleteDesign: "Êtes-vous sûr de vouloir supprimer ce design?",
+            designAdded: "Design ajouté avec succès",
+            settingsSaved: "Paramètres enregistrés avec succès",
+            messageSent: "Message envoyé avec succès",
+            loginError: "Code d'accès incorrect!",
+            dataUpdated: "Données actualisées",
+            loginSuccess: "Connexion réussie!"
         }
+    };
+    
+    // الحالة الحالية
+    let currentLang = 'ar';
+    let isLoggedIn = false;
+    
+    // تهيئة الصفحة عند التحميل
+    document.addEventListener('DOMContentLoaded', function() {
+        // تعيين اللغة المحفوظة
+        currentLang = loadLanguage();
         
-        // نص الترجمة الكامل
-        const translations = {
-            ar: {
-                // شاشة تسجيل الدخول
-                loginTitle: "لوحة تحكم البلدية",
-                loginSubtitle: "يجب إدخال رمز الدخول للوصول إلى لوحة التحكم",
-                passwordLabel: "رمز الدخول السري",
-                passwordHint: "الرمز السري: 00000000",
-                loginText: "دخول إلى لوحة التحكم",
-                backText: "العودة إلى الصفحة الرئيسية",
-                logoutText: "تسجيل الخروج",
-                
-                // لوحة التحكم
-                dashboardTitle: "لوحة تحكم البلدية",
-                refreshText: "تحديث البيانات",
-                statVotersLabel: "إجمالي المصوتين",
-                statDesignsLabel: "إجمالي التصاميم",
-                statVotesLabel: "إجمالي الأصوات",
-                statParticipationLabel: "معدل المشاركة",
-                
-                // علامات التبويب
-                tabVotersText: "المصوتون",
-                tabDesignsText: "إدارة التصاميم",
-                tabChatText: "المحادثات",
-                tabStatsText: "الإحصائيات",
-                tabSettingsText: "الإعدادات",
-                
-                // تبويب المصوتين
-                votersTitle: "قاعدة بيانات المصوتين",
-                thName: "الاسم الكامل",
-                thCadastral: "رقم الدفتر العقاري",
-                thDesign: "التصميم المختار",
-                thDate: "تاريخ التصويت",
-                thActions: "الإجراءات",
-                viewText: "عرض",
-                deleteText: "حذف",
-                noVotersText: "لا يوجد مصوتون حتى الآن",
-                
-                // تبويب التصاميم
-                designsTitle: "إدارة التصاميم المعروضة",
-                addDesignText: "إضافة تصميم جديد",
-                thDesignName: "اسم التصميم",
-                thEngineer: "المهندس",
-                thDesignDate: "تاريخ النشر",
-                thVotesCount: "عدد الأصوات",
-                thDesignActions: "الإجراءات",
-                editText: "تعديل",
-                noDesignsText: "لا توجد تصاميم معروضة",
-                
-                // تبويب المحادثات
-                chatTitle: "المحادثات مع المهندسين",
-                engineersTitle: "المهندسون",
-                selectEngineerText: "اختر مهندساً للمحادثة",
-                sendText: "إرسال",
-                noEngineersText: "لا يوجد مهندسون مسجلون",
-                noMessagesText: "لا توجد رسائل بعد. ابدأ المحادثة الآن!",
-                
-                // تبويب الإحصائيات
-                statsTitle: "إحصائيات التصويت",
-                votesChartTitle: "توزيع الأصوات على التصاميم",
-                dailyChartTitle: "نشاط التصويت اليومي",
-                
-                // تبويب الإعدادات
-                settingsTitle: "إعدادات المنصة",
-                platformSettingsTitle: "إعدادات المنصة",
-                platformNameLabel: "اسم المنصة",
-                deadlineLabel: "موعد انتهاء التصويت",
-                saveSettingsText: "حفظ الإعدادات",
-                infoTitle: "معلومات المبادرة",
-                creatorInfo: "فكرة السيد بلمواز طاهر عبد الإله",
-                universityInfo: "جامعة ابن خلدون تيارت - تخصص قانون عقاري ماستر 2",
-                phoneLabel: "هاتف",
-                emailLabel: "بريد إلكتروني",
-                yearLabel: "السنة",
-                
-                // رسائل
-                confirmDelete: "هل أنت متأكد من حذف هذا السجل؟",
-                designAdded: "تمت إضافة التصميم بنجاح",
-                settingsSaved: "تم حفظ الإعدادات بنجاح",
-                messageSent: "تم إرسال الرسالة بنجاح",
-                
-                // تذييل الصفحة
-                footerCopyright: "جميع الحقوق محفوظة © YEAR El Wajiha DZ - لوحة تحكم البلدية"
-            },
-            fr: {
-                // شاشة تسجيل الدخول
-                loginTitle: "Tableau de bord municipal",
-                loginSubtitle: "Veuillez entrer le code d'accès pour accéder au tableau de bord",
-                passwordLabel: "Code d'accès sécurisé",
-                passwordHint: "Code secret: 00000000",
-                loginText: "Accéder au tableau de bord",
-                backText: "Retour à la page d'accueil",
-                logoutText: "Déconnexion",
-                
-                // لوحة التحكم
-                dashboardTitle: "Tableau de bord municipal",
-                refreshText: "Actualiser les données",
-                statVotersLabel: "Total des électeurs",
-                statDesignsLabel: "Total des designs",
-                statVotesLabel: "Total des votes",
-                statParticipationLabel: "Taux de participation",
-                
-                // علامات التبويب
-                tabVotersText: "Électeurs",
-                tabDesignsText: "Gestion des designs",
-                tabChatText: "Conversations",
-                tabStatsText: "Statistiques",
-                tabSettingsText: "Paramètres",
-                
-                // تبويب المصوتين
-                votersTitle: "Base de données des électeurs",
-                thName: "Nom complet",
-                thCadastral: "Numéro cadastral",
-                thDesign: "Design choisi",
-                thDate: "Date de vote",
-                thActions: "Actions",
-                viewText: "Voir",
-                deleteText: "Supprimer",
-                noVotersText: "Aucun électeur pour le moment",
-                
-                // تبويب التصاميم
-                designsTitle: "Gestion des designs affichés",
-                addDesignText: "Ajouter un nouveau design",
-                thDesignName: "Nom du design",
-                thEngineer: "Ingénieur",
-                thDesignDate: "Date de publication",
-                thVotesCount: "Nombre de votes",
-                thDesignActions: "Actions",
-                editText: "Modifier",
-                noDesignsText: "Aucun design affiché",
-                
-                // تبويب المحادثات
-                chatTitle: "Conversations avec les ingénieurs",
-                engineersTitle: "Ingénieurs",
-                selectEngineerText: "Sélectionnez un ingénieur pour discuter",
-                sendText: "Envoyer",
-                noEngineersText: "Aucun ingénieur enregistré",
-                noMessagesText: "Aucun message pour le moment. Commencez la conversation maintenant!",
-                
-                // تبويب الإحصائيات
-                statsTitle: "Statistiques de vote",
-                votesChartTitle: "Répartition des votes par design",
-                dailyChartTitle: "Activité de vote quotidienne",
-                
-                // تبويب الإعدادات
-                settingsTitle: "Paramètres de la plateforme",
-                platformSettingsTitle: "Paramètres de la plateforme",
-                platformNameLabel: "Nom de la plateforme",
-                deadlineLabel: "Date limite de vote",
-                saveSettingsText: "Enregistrer les paramètres",
-                infoTitle: "Informations sur l'initiative",
-                creatorInfo: "Idée de M. Belmouaz Taher Abdelilah",
-                universityInfo: "Université Ibn Khaldoun Tiaret - Spécialité Droit foncier Master 2",
-                phoneLabel: "Téléphone",
-                emailLabel: "Email",
-                yearLabel: "Année",
-                
-                // رسائل
-                confirmDelete: "Êtes-vous sûr de vouloir supprimer cet enregistrement?",
-                designAdded: "Design ajouté avec succès",
-                settingsSaved: "Paramètres enregistrés avec succès",
-                messageSent: "Message envoyé avec succès",
-                
-                // تذييل الصفحة
-                footerCopyright: "Tous droits réservés © YEAR El Wajiha DZ - Tableau de bord municipal"
-            }
-        };
-        
-        // الحالة الحالية
-        let currentLang = 'ar';
-        let isLoggedIn = false;
-        
-        // تهيئة الصفحة عند التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            // تعيين اللغة المحفوظة
-            currentLang = loadLanguage();
-            
-            // تعيين السنة الحالية
-            const currentYear = new Date().getFullYear();
-            document.getElementById('current-year').textContent = currentYear;
-            document.getElementById('footer-year').textContent = currentYear;
-            
-            // تطبيق اللغة
-            applyLanguage();
-            
-            // التحقق من تسجيل الدخول
-            checkLoginStatus();
-            
-            // إعداد مستمعي الأحداث
-            setupEventListeners();
-        });
-        
-        // التحقق من حالة تسجيل الدخول
-        function checkLoginStatus() {
-            const savedLogin = localStorage.getItem('elwajiha_municipality_login');
-            if (savedLogin === 'true') {
-                isLoggedIn = true;
-                showDashboard();
-            } else {
-                showLoginScreen();
-            }
-        }
+        // تعيين السنة الحالية
+        const currentYear = new Date().getFullYear();
+        document.getElementById('current-year').textContent = currentYear;
+        document.getElementById('footer-year').textContent = currentYear;
         
         // تطبيق اللغة
-        function applyLanguage() {
-            const t = translations[currentLang];
-            
-            // تحديث جميع النصوص
-            updateAllTexts(t);
-            
-            // تحديث أزرار اللغة
-            updateLanguageButtons();
-            
-            // إذا كانت لوحة التحكم ظاهرة، قم بتحديث البيانات
-            if (isLoggedIn) {
-                updateStats();
-                loadVotersData();
-                loadDesignsData();
-                if (document.getElementById('chat-tab').classList.contains('active')) {
-                    loadEngineersList();
-                }
-            }
-        }
+        applyLanguage();
         
-        // تحديث جميع النصوص
-        function updateAllTexts(t) {
-            // تحديث العناصر الموجودة
-            const elementsToUpdate = [
-                'login-title', 'login-subtitle', 'password-label', 'password-hint',
-                'login-text', 'back-text', 'logout-text', 'dashboard-title',
-                'refresh-text', 'stat-voters-label', 'stat-designs-label',
-                'stat-votes-label', 'stat-participation-label', 'tab-voters-text',
-                'tab-designs-text', 'tab-chat-text', 'tab-stats-text', 'tab-settings-text',
-                'voters-title', 'th-name', 'th-cadastral', 'th-design', 'th-date',
-                'th-actions', 'designs-title', 'add-design-text', 'th-design-name',
-                'th-engineer', 'th-design-date', 'th-votes-count', 'th-design-actions',
-                'chat-title', 'engineers-title', 'select-engineer-text', 'send-text',
-                'stats-title', 'votes-chart-title', 'daily-chart-title', 'settings-title',
-                'platform-settings-title', 'platform-name-label', 'deadline-label',
-                'save-settings-text', 'info-title', 'creator-info', 'university-info',
-                'phone-label', 'email-label', 'year-label', 'footer-copyright'
-            ];
-            
-            elementsToUpdate.forEach(id => {
-                const element = document.getElementById(id);
-                if (element && t[id]) {
-                    if (id === 'footer-copyright') {
-                        const year = new Date().getFullYear();
-                        element.textContent = t[id].replace('YEAR', year);
-                    } else {
-                        element.textContent = t[id];
-                    }
-                }
-            });
-        }
-        
-        // تحديث أزرار اللغة
-        function updateLanguageButtons() {
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                const lang = btn.getAttribute('data-lang');
-                btn.classList.toggle('active', lang === currentLang);
-            });
-        }
+        // التحقق من تسجيل الدخول
+        checkLoginStatus();
         
         // إعداد مستمعي الأحداث
-        function setupEventListeners() {
-            // نموذج تسجيل الدخول
-            document.getElementById('login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const password = document.getElementById('admin-password').value;
-                const correctPassword = '00000000';
-                
-                if (password === correctPassword) {
-                    isLoggedIn = true;
-                    localStorage.setItem('elwajiha_municipality_login', 'true');
-                    showDashboard();
-                } else {
-                    alert(currentLang === 'ar' ? 'رمز الدخول غير صحيح!' : 'Code d\'accès incorrect!');
-                }
-            });
-            
-            // زر تسجيل الخروج
-            document.getElementById('logout-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                logout();
-            });
-            
-            // أزرار اللغة
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const lang = this.getAttribute('data-lang');
-                    currentLang = lang;
-                    localStorage.setItem('elwajiha_language', lang);
-                    applyLanguage();
-                });
-            });
-            
-            // أزرار علامات التبويب
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // تحديث الأزرار النشطة
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // إظهار المحتوى المناسب
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(tabId).classList.add('active');
-                    
-                    // تحميل بيانات التبويب
-                    if (tabId === 'chat-tab') {
-                        loadEngineersList();
-                    } else if (tabId === 'stats-tab') {
-                        loadCharts();
-                    }
-                });
-            });
-            
-            // زر إضافة تصميم
-            document.getElementById('add-design-btn').addEventListener('click', addNewDesign);
-            
-            // زر إرسال الرسالة
-            document.getElementById('send-btn').addEventListener('click', sendMessage);
-            
-            // زر حفظ الإعدادات
-            document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
-            
-            // زر تحديث البيانات
-            document.getElementById('refresh-btn').addEventListener('click', refreshData);
-        }
-        
-        // تسجيل الخروج
-        function logout() {
-            isLoggedIn = false;
-            localStorage.removeItem('elwajiha_municipality_login');
+        setupEventListeners();
+    });
+    
+    // التحقق من حالة تسجيل الدخول
+    function checkLoginStatus() {
+        const savedLogin = localStorage.getItem('elwajiha_municipality_login');
+        if (savedLogin === 'true') {
+            isLoggedIn = true;
+            showDashboard();
+        } else {
             showLoginScreen();
         }
+    }
+    
+    // تطبيق اللغة
+    function applyLanguage() {
+        const t = translations[currentLang];
         
-        // إظهار شاشة تسجيل الدخول
-        function showLoginScreen() {
-            document.getElementById('login-screen').style.display = 'flex';
-            document.getElementById('navbar').style.display = 'none';
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('footer').style.display = 'none';
-        }
+        // تحديث جميع النصوص
+        updateAllTexts(t);
         
-        // إظهار لوحة التحكم
-        function showDashboard() {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('navbar').style.display = 'block';
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('footer').style.display = 'block';
-            
-            // تحميل البيانات
+        // تحديث أزرار اللغة
+        updateLanguageButtons();
+        
+        // تحديث تسميات الأزرار
+        document.getElementById('lang-ar').textContent = t.arabicBtn;
+        document.getElementById('lang-fr').textContent = t.frenchBtn;
+        
+        // إذا كانت لوحة التحكم ظاهرة، قم بتحديث البيانات
+        if (isLoggedIn) {
             updateStats();
             loadVotersData();
             loadDesignsData();
-        }
-        
-        // تحديث الإحصائيات
-        function updateStats() {
-            const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
-            const uniqueVoters = [...new Set(votes.map(v => v.cadastral))];
-            
-            document.getElementById('total-voters').textContent = uniqueVoters.length;
-            document.getElementById('total-designs').textContent = 4; // عدد التصاميم الثابت
-            document.getElementById('total-votes').textContent = votes.length;
-            document.getElementById('participation-rate').textContent = `${Math.round((uniqueVoters.length / 1000) * 100)}%`;
-        }
-        
-        // تحميل بيانات المصوتين
-        function loadVotersData() {
-            const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
-            const tbody = document.getElementById('voters-table-body');
-            tbody.innerHTML = '';
-            
-            if (votes.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 30px; color: var(--gray-color);">
-                            ${currentLang === 'ar' ? 'لا يوجد مصوتون حتى الآن' : 'Aucun électeur pour le moment'}
-                        </td>
-                    </tr>
-                `;
-                return;
+            if (document.getElementById('chat-tab').classList.contains('active')) {
+                loadEngineersList();
             }
-            
-            votes.forEach((vote, index) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${vote.name}</td>
-                    <td>${vote.cadastral}</td>
-                    <td>${currentLang === 'ar' ? 'تصميم ' + vote.designId : 'Design ' + vote.designId}</td>
-                    <td>${vote.date}</td>
-                    <td>
-                        <button class="action-btn edit-btn" onclick="viewVoter(${index})">
-                            <i class="fas fa-eye"></i> ${currentLang === 'ar' ? 'عرض' : 'Voir'}
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteVoter(${index})">
-                            <i class="fas fa-trash"></i> ${currentLang === 'ar' ? 'حذف' : 'Supprimer'}
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+            if (document.getElementById('stats-tab').classList.contains('active')) {
+                loadCharts();
+            }
+        }
+    }
+    
+    // تحديث جميع النصوص
+    function updateAllTexts(t) {
+        // تحديث العناصر النصية مباشرة
+        const elementsToUpdate = [
+            {id: 'login-title', text: t.loginTitle},
+            {id: 'login-subtitle', text: t.loginSubtitle},
+            {id: 'password-label', text: t.passwordLabel},
+            {id: 'password-hint', text: t.passwordHint},
+            {id: 'login-text', text: t.loginText},
+            {id: 'back-text', text: t.backText},
+            {id: 'logout-text', text: t.logoutText},
+            {id: 'user-type', text: t.userType},
+            {id: 'dashboard-title', text: t.dashboardTitle},
+            {id: 'refresh-text', text: t.refreshText},
+            {id: 'stat-voters-label', text: t.statVotersLabel},
+            {id: 'stat-designs-label', text: t.statDesignsLabel},
+            {id: 'stat-votes-label', text: t.statVotesLabel},
+            {id: 'stat-participation-label', text: t.statParticipationLabel},
+            {id: 'tab-voters-text', text: t.tabVotersText},
+            {id: 'tab-designs-text', text: t.tabDesignsText},
+            {id: 'tab-chat-text', text: t.tabChatText},
+            {id: 'tab-stats-text', text: t.tabStatsText},
+            {id: 'tab-settings-text', text: t.tabSettingsText},
+            {id: 'voters-title', text: t.votersTitle},
+            {id: 'th-name', text: t.thName},
+            {id: 'th-cadastral', text: t.thCadastral},
+            {id: 'th-design', text: t.thDesign},
+            {id: 'th-date', text: t.thDate},
+            {id: 'th-actions', text: t.thActions},
+            {id: 'designs-title', text: t.designsTitle},
+            {id: 'add-design-text', text: t.addDesignText},
+            {id: 'th-design-name', text: t.thDesignName},
+            {id: 'th-engineer', text: t.thEngineer},
+            {id: 'th-design-date', text: t.thDesignDate},
+            {id: 'th-votes-count', text: t.thVotesCount},
+            {id: 'th-design-actions', text: t.thDesignActions},
+            {id: 'chat-title', text: t.chatTitle},
+            {id: 'engineers-title', text: t.engineersTitle},
+            {id: 'select-engineer-text', text: t.selectEngineerText},
+            {id: 'send-text', text: t.sendText},
+            {id: 'stats-title', text: t.statsTitle},
+            {id: 'votes-chart-title', text: t.votesChartTitle},
+            {id: 'daily-chart-title', text: t.dailyChartTitle},
+            {id: 'settings-title', text: t.settingsTitle},
+            {id: 'platform-settings-title', text: t.platformSettingsTitle},
+            {id: 'platform-name-label', text: t.platformNameLabel},
+            {id: 'deadline-label', text: t.deadlineLabel},
+            {id: 'save-settings-text', text: t.saveSettingsText},
+            {id: 'info-title', text: t.infoTitle},
+            {id: 'creator-info', text: t.creatorInfo},
+            {id: 'university-info', text: t.universityInfo},
+            {id: 'phone-label', text: t.phoneLabel},
+            {id: 'email-label', text: t.emailLabel},
+            {id: 'year-label', text: t.yearLabel}
+        ];
+        
+        elementsToUpdate.forEach(item => {
+            const element = document.getElementById(item.id);
+            if (element) {
+                element.textContent = item.text;
+            }
+        });
+        
+        // تحديث حقل الإدخال في المحادثة
+        const messageInput = document.getElementById('message-input');
+        if (messageInput) {
+            messageInput.placeholder = t.messagePlaceholder;
         }
         
-        // تحميل بيانات التصاميم
-        function loadDesignsData() {
-            const designs = [
-                {
-                    id: 1,
-                    title: "تصميم حديقة عامة في بلدية الجزائر الوسطى",
-                    title_fr: "Design de jardin public dans la municipalité d'Alger Centre",
-                    engineer: "المهندس أحمد بوعافية",
-                    engineer_fr: "Ingénieur Ahmed Bouafia",
-                    votes: 125,
-                    date: "2023-10-15"
-                },
-                {
-                    id: 2,
-                    title: "تصميم ساحة ترفيهية في القبة",
-                    title_fr: "Design d'une place de loisirs à El Qobba",
-                    engineer: "المهندسة ليلى قاسمي",
-                    engineer_fr: "Ingénieure Leïla Kassimi",
-                    votes: 89,
-                    date: "2023-10-10"
-                },
-                {
-                    id: 3,
-                    title: "تصميم مجمع رياضي في باب الزوار",
-                    title_fr: "Design d'un complexe sportif à Bab Ezzouar",
-                    engineer: "المهندس خالد مرزوق",
-                    engineer_fr: "Ingénieur Khaled Merzouk",
-                    votes: 203,
-                    date: "2023-10-05"
-                },
-                {
-                    id: 4,
-                    title: "تصميم مكتبة بلدية في الحراش",
-                    title_fr: "Design d'une bibliothèque municipale à El Harrach",
-                    engineer: "المهندسة سارة طالب",
-                    engineer_fr: "Ingénieure Sara Taleb",
-                    votes: 67,
-                    date: "2023-09-28"
-                }
-            ];
+        // تحديث تذييل الصفحة
+        const footerCopyright = document.getElementById('footer-copyright');
+        if (footerCopyright) {
+            const year = new Date().getFullYear();
+            footerCopyright.textContent = t.footerCopyright.replace('YEAR', year);
+        }
+    }
+    
+    // تحديث أزرار اللغة
+    function updateLanguageButtons() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const lang = btn.getAttribute('data-lang');
+            btn.classList.toggle('active', lang === currentLang);
+        });
+    }
+    
+    // إعداد مستمعي الأحداث
+    function setupEventListeners() {
+        // نموذج تسجيل الدخول
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            const tbody = document.getElementById('designs-table-body');
-            tbody.innerHTML = '';
+            const password = document.getElementById('admin-password').value;
+            const correctPassword = '00000000';
             
-            designs.forEach((design, index) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${currentLang === 'ar' ? design.title : design.title_fr}</td>
-                    <td>${currentLang === 'ar' ? design.engineer : design.engineer_fr}</td>
-                    <td>${design.date}</td>
-                    <td>${design.votes}</td>
-                    <td>
-                        <button class="action-btn edit-btn" onclick="editDesign(${design.id})">
-                            <i class="fas fa-edit"></i> ${currentLang === 'ar' ? 'تعديل' : 'Modifier'}
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteDesign(${design.id})">
-                            <i class="fas fa-trash"></i> ${currentLang === 'ar' ? 'حذف' : 'Supprimer'}
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+            if (password === correctPassword) {
+                isLoggedIn = true;
+                localStorage.setItem('elwajiha_municipality_login', 'true');
+                showDashboard();
+                alert(translations[currentLang].loginSuccess);
+            } else {
+                alert(translations[currentLang].loginError);
+            }
+        });
+        
+        // زر تسجيل الخروج
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+        
+        // أزرار اللغة
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                currentLang = lang;
+                localStorage.setItem('elwajiha_language', lang);
+                applyLanguage();
             });
+        });
+        
+        // أزرار علامات التبويب
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // تحديث الأزرار النشطة
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // إظهار المحتوى المناسب
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+                
+                // تحميل بيانات التبويب
+                if (tabId === 'chat-tab') {
+                    loadEngineersList();
+                } else if (tabId === 'stats-tab') {
+                    loadCharts();
+                }
+            });
+        });
+        
+        // زر إضافة تصميم
+        document.getElementById('add-design-btn').addEventListener('click', addNewDesign);
+        
+        // زر إرسال الرسالة
+        document.getElementById('send-btn').addEventListener('click', sendMessage);
+        
+        // زر حفظ الإعدادات
+        document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
+        
+        // زر تحديث البيانات
+        document.getElementById('refresh-btn').addEventListener('click', refreshData);
+    }
+    
+    // تسجيل الخروج
+    function logout() {
+        isLoggedIn = false;
+        localStorage.removeItem('elwajiha_municipality_login');
+        showLoginScreen();
+    }
+    
+    // إظهار شاشة تسجيل الدخول
+    function showLoginScreen() {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('navbar').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('footer').style.display = 'none';
+    }
+    
+    // إظهار لوحة التحكم
+    function showDashboard() {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('navbar').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('footer').style.display = 'block';
+        
+        // تحميل البيانات
+        updateStats();
+        loadVotersData();
+        loadDesignsData();
+    }
+    
+    // تحديث الإحصائيات
+    function updateStats() {
+        const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+        const uniqueVoters = [...new Set(votes.map(v => v.cadastral))];
+        
+        document.getElementById('total-voters').textContent = uniqueVoters.length;
+        document.getElementById('total-designs').textContent = 4; // عدد التصاميم الثابت
+        document.getElementById('total-votes').textContent = votes.length;
+        document.getElementById('participation-rate').textContent = `${Math.round((uniqueVoters.length / 1000) * 100)}%`;
+    }
+    
+    // تحميل بيانات المصوتين
+    function loadVotersData() {
+        const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+        const tbody = document.getElementById('voters-table-body');
+        tbody.innerHTML = '';
+        
+        if (votes.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 30px; color: var(--gray-color);">
+                        ${translations[currentLang].noVotersText}
+                    </td>
+                </tr>
+            `;
+            return;
         }
         
-        // تحميل قائمة المهندسين
-        function loadEngineersList() {
-            const engineers = [
-                {
-                    id: 1,
-                    name: "المهندس أحمد بوعافية",
-                    name_fr: "Ingénieur Ahmed Bouafia",
-                    specialization: "تصميم الحدائق والمساحات الخضراء",
-                    specialization_fr: "Design de jardins et espaces verts"
-                },
-                {
-                    id: 2,
-                    name: "المهندسة ليلى قاسمي",
-                    name_fr: "Ingénieure Leïla Kassimi",
-                    specialization: "التصميم الحضري والترفيهي",
-                    specialization_fr: "Design urbain et de loisirs"
-                },
-                {
-                    id: 3,
-                    name: "المهندس خالد مرزوق",
-                    name_fr: "Ingénieur Khaled Merzouk",
-                    specialization: "المباني الرياضية والترفيهية",
-                    specialization_fr: "Bâtiments sportifs et de loisirs"
-                },
-                {
-                    id: 4,
-                    name: "المهندسة سارة طالب",
-                    name_fr: "Ingénieure Sara Taleb",
-                    specialization: "المباني الثقافية والتعليمية",
-                    specialization_fr: "Bâtiments culturels et éducatifs"
-                }
-            ];
+        votes.forEach((vote, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${vote.name}</td>
+                <td>${vote.cadastral}</td>
+                <td>${translations[currentLang].tabDesignsText} ${vote.designId}</td>
+                <td>${vote.date}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="viewVoter(${index})">
+                        <i class="fas fa-eye"></i> ${translations[currentLang].viewText}
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteVoter(${index})">
+                        <i class="fas fa-trash"></i> ${translations[currentLang].deleteText}
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+    
+    // تحميل بيانات التصاميم
+    function loadDesignsData() {
+        const designs = [
+            {
+                id: 1,
+                title: translations[currentLang].tabDesignsText + " 1",
+                title_fr: "Design 1",
+                engineer: currentLang === 'ar' ? "المهندس أحمد بوعافية" : "Ingénieur Ahmed Bouafia",
+                votes: 125,
+                date: "2023-10-15"
+            },
+            {
+                id: 2,
+                title: translations[currentLang].tabDesignsText + " 2",
+                title_fr: "Design 2",
+                engineer: currentLang === 'ar' ? "المهندسة ليلى قاسمي" : "Ingénieure Leïla Kassimi",
+                votes: 89,
+                date: "2023-10-10"
+            },
+            {
+                id: 3,
+                title: translations[currentLang].tabDesignsText + " 3",
+                title_fr: "Design 3",
+                engineer: currentLang === 'ar' ? "المهندس خالد مرزوق" : "Ingénieur Khaled Merzouk",
+                votes: 203,
+                date: "2023-10-05"
+            },
+            {
+                id: 4,
+                title: translations[currentLang].tabDesignsText + " 4",
+                title_fr: "Design 4",
+                engineer: currentLang === 'ar' ? "المهندسة سارة طالب" : "Ingénieure Sara Taleb",
+                votes: 67,
+                date: "2023-09-28"
+            }
+        ];
+        
+        const tbody = document.getElementById('designs-table-body');
+        tbody.innerHTML = '';
+        
+        designs.forEach((design, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${currentLang === 'ar' ? design.title : design.title_fr}</td>
+                <td>${design.engineer}</td>
+                <td>${design.date}</td>
+                <td>${design.votes}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="editDesign(${design.id})">
+                        <i class="fas fa-edit"></i> ${translations[currentLang].editText}
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteDesign(${design.id})">
+                        <i class="fas fa-trash"></i> ${translations[currentLang].deleteText}
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+    
+    // تحميل قائمة المهندسين
+    function loadEngineersList() {
+        const engineers = [
+            {
+                id: 1,
+                name: currentLang === 'ar' ? "المهندس أحمد بوعافية" : "Ingénieur Ahmed Bouafia",
+                specialization: currentLang === 'ar' ? "تصميم الحدائق والمساحات الخضراء" : "Design de jardins et espaces verts"
+            },
+            {
+                id: 2,
+                name: currentLang === 'ar' ? "المهندسة ليلى قاسمي" : "Ingénieure Leïla Kassimi",
+                specialization: currentLang === 'ar' ? "التصميم الحضري والترفيهي" : "Design urbain et de loisirs"
+            },
+            {
+                id: 3,
+                name: currentLang === 'ar' ? "المهندس خالد مرزوق" : "Ingénieur Khaled Merzouk",
+                specialization: currentLang === 'ar' ? "المباني الرياضية والترفيهية" : "Bâtiments sportifs et de loisirs"
+            },
+            {
+                id: 4,
+                name: currentLang === 'ar' ? "المهندسة سارة طالب" : "Ingénieure Sara Taleb",
+                specialization: currentLang === 'ar' ? "المباني الثقافية والتعليمية" : "Bâtiments culturels et éducatifs"
+            }
+        ];
+        
+        const engineersList = document.getElementById('engineers-list');
+        engineersList.innerHTML = '';
+        
+        if (engineers.length === 0) {
+            engineersList.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--gray-color);">${translations[currentLang].noEngineersText}</div>`;
+            return;
+        }
+        
+        engineers.forEach(engineer => {
+            const engineerEl = document.createElement('div');
+            engineerEl.style.padding = '15px';
+            engineerEl.style.borderBottom = '1px solid #ddd';
+            engineerEl.style.cursor = 'pointer';
+            engineerEl.style.transition = 'background-color 0.3s';
             
-            const engineersList = document.getElementById('engineers-list');
-            engineersList.innerHTML = '';
+            engineerEl.innerHTML = `
+                <h4 style="margin-bottom: 5px;">${engineer.name}</h4>
+                <p style="color: var(--gray-color); font-size: 0.9rem;">${engineer.specialization}</p>
+            `;
             
-            engineers.forEach(engineer => {
-                const engineerEl = document.createElement('div');
-                engineerEl.style.padding = '15px';
-                engineerEl.style.borderBottom = '1px solid #ddd';
-                engineerEl.style.cursor = 'pointer';
-                engineerEl.style.transition = 'background-color 0.3s';
-                
-                engineerEl.innerHTML = `
-                    <h4 style="margin-bottom: 5px;">${currentLang === 'ar' ? engineer.name : engineer.name_fr}</h4>
-                    <p style="color: var(--gray-color); font-size: 0.9rem;">${currentLang === 'ar' ? engineer.specialization : engineer.specialization_fr}</p>
-                `;
-                
-                engineerEl.addEventListener('click', function() {
-                    // إزالة التحديد من جميع المهندسين
-                    document.querySelectorAll('#engineers-list > div').forEach(el => {
-                        el.style.backgroundColor = 'transparent';
-                    });
-                    
-                    // تحديد المهندس المختار
-                    engineerEl.style.backgroundColor = 'var(--light-green)';
-                    
-                    // تحميل المحادثة
-                    loadChat(engineer.id);
+            engineerEl.addEventListener('click', function() {
+                // إزالة التحديد من جميع المهندسين
+                document.querySelectorAll('#engineers-list > div').forEach(el => {
+                    el.style.backgroundColor = 'transparent';
                 });
                 
-                engineersList.appendChild(engineerEl);
+                // تحديد المهندس المختار
+                engineerEl.style.backgroundColor = 'var(--light-green)';
+                
+                // تحميل المحادثة
+                loadChat(engineer.id);
             });
+            
+            engineersList.appendChild(engineerEl);
+        });
+    }
+    
+    // تحميل المحادثة
+    function loadChat(engineerId) {
+        const engineers = [
+            {id: 1, name: currentLang === 'ar' ? "المهندس أحمد بوعافية" : "Ingénieur Ahmed Bouafia"},
+            {id: 2, name: currentLang === 'ar' ? "المهندسة ليلى قاسمي" : "Ingénieure Leïla Kassimi"},
+            {id: 3, name: currentLang === 'ar' ? "المهندس خالد مرزوق" : "Ingénieur Khaled Merzouk"},
+            {id: 4, name: currentLang === 'ar' ? "المهندسة سارة طالب" : "Ingénieure Sara Taleb"}
+        ];
+        
+        const engineer = engineers.find(e => e.id === engineerId);
+        if (!engineer) return;
+        
+        document.getElementById('chat-header').innerHTML = `<span>${currentLang === 'ar' ? 'المحادثة مع' : 'Conversation avec'} ${engineer.name}</span>`;
+        
+        // تفعيل حقل الإدخال
+        document.getElementById('message-input').disabled = false;
+        document.getElementById('send-btn').disabled = false;
+        document.getElementById('message-input').placeholder = translations[currentLang].messagePlaceholder;
+        
+        // تحميل الرسائل
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.innerHTML = '<p style="text-align: center; color: var(--gray-color); padding: 30px;">' + 
+            translations[currentLang].noMessagesText + 
+            '</p>';
+    }
+    
+    // إرسال رسالة
+    function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const messageText = messageInput.value.trim();
+        
+        if (!messageText) return;
+        
+        // محاكاة إرسال الرسالة
+        alert(translations[currentLang].messageSent);
+        messageInput.value = '';
+    }
+    
+    // تحميل المخططات
+    function loadCharts() {
+        // مخطط الأصوات
+        const votesCtx = document.getElementById('votes-chart').getContext('2d');
+        
+        // تدمير المخطط القديم إذا كان موجوداً
+        if (window.votesChart) {
+            window.votesChart.destroy();
         }
         
-        // تحميل المحادثة
-        function loadChat(engineerId) {
-            const engineers = [
-                {id: 1, name: "المهندس أحمد بوعافية", name_fr: "Ingénieur Ahmed Bouafia"},
-                {id: 2, name: "المهندسة ليلى قاسمي", name_fr: "Ingénieure Leïla Kassimi"},
-                {id: 3, name: "المهندس خالد مرزوق", name_fr: "Ingénieur Khaled Merzouk"},
-                {id: 4, name: "المهندسة سارة طالب", name_fr: "Ingénieure Sara Taleb"}
-            ];
-            
-            const engineer = engineers.find(e => e.id === engineerId);
-            if (!engineer) return;
-            
-            document.getElementById('chat-header').innerHTML = `<span>${currentLang === 'ar' ? 'المحادثة مع' : 'Conversation avec'} ${currentLang === 'ar' ? engineer.name : engineer.name_fr}</span>`;
-            
-            // تفعيل حقل الإدخال
-            document.getElementById('message-input').disabled = false;
-            document.getElementById('send-btn').disabled = false;
-            document.getElementById('message-input').placeholder = currentLang === 'ar' ? 'اكتب رسالتك هنا...' : 'Tapez votre message ici...';
-            
-            // تحميل الرسائل
-            const chatMessages = document.getElementById('chat-messages');
-            chatMessages.innerHTML = '<p style="text-align: center; color: var(--gray-color); padding: 30px;">' + 
-                (currentLang === 'ar' ? 'لا توجد رسائل بعد. ابدأ المحادثة الآن!' : 'Aucun message pour le moment. Commencez la conversation maintenant!') + 
-                '</p>';
-        }
+        const designNames = currentLang === 'ar' ? 
+            ['تصميم 1', 'تصميم 2', 'تصميم 3', 'تصميم 4'] :
+            ['Design 1', 'Design 2', 'Design 3', 'Design 4'];
         
-        // إرسال رسالة
-        function sendMessage() {
-            const messageInput = document.getElementById('message-input');
-            const messageText = messageInput.value.trim();
-            
-            if (!messageText) return;
-            
-            // محاكاة إرسال الرسالة
-            alert(currentLang === 'ar' ? 'تم إرسال الرسالة بنجاح' : 'Message envoyé avec succès');
-            messageInput.value = '';
-        }
-        
-        // تحميل المخططات
-        function loadCharts() {
-            // مخطط الأصوات
-            const votesCtx = document.getElementById('votes-chart').getContext('2d');
-            
-            // تدمير المخطط القديم إذا كان موجوداً
-            if (window.votesChart) {
-                window.votesChart.destroy();
-            }
-            
-            window.votesChart = new Chart(votesCtx, {
-                type: 'bar',
-                data: {
-                    labels: currentLang === 'ar' ? 
-                        ['حديقة عامة', 'ساحة ترفيهية', 'مجمع رياضي', 'مكتبة بلدية'] :
-                        ['Jardin public', 'Place de loisirs', 'Complexe sportif', 'Bibliothèque municipale'],
-                    datasets: [{
-                        label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
-                        data: [125, 89, 203, 67],
-                        backgroundColor: 'rgba(0, 102, 51, 0.7)',
-                        borderColor: 'rgba(0, 102, 51, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
+        window.votesChart = new Chart(votesCtx, {
+            type: 'bar',
+            data: {
+                labels: designNames,
+                datasets: [{
+                    label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
+                    data: [125, 89, 203, 67],
+                    backgroundColor: 'rgba(0, 102, 51, 0.7)',
+                    borderColor: 'rgba(0, 102, 51, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
                     }
                 }
-            });
-            
-            // مخطط النشاط اليومي
-            const dailyCtx = document.getElementById('daily-votes-chart').getContext('2d');
-            
-            // تدمير المخطط القديم إذا كان موجوداً
-            if (window.dailyChart) {
-                window.dailyChart.destroy();
             }
-            
-            window.dailyChart = new Chart(dailyCtx, {
-                type: 'line',
-                data: {
-                    labels: currentLang === 'ar' ? 
-                        ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'] :
-                        ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-                    datasets: [{
-                        label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
-                        data: [12, 19, 8, 15, 22, 10, 7],
-                        borderColor: 'rgba(200, 16, 46, 1)',
-                        backgroundColor: 'rgba(200, 16, 46, 0.1)',
-                        borderWidth: 2,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: true
-                        }
+        });
+        
+        // مخطط النشاط اليومي
+        const dailyCtx = document.getElementById('daily-votes-chart').getContext('2d');
+        
+        // تدمير المخطط القديم إذا كان موجوداً
+        if (window.dailyChart) {
+            window.dailyChart.destroy();
+        }
+        
+        const days = currentLang === 'ar' ? 
+            ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'] :
+            ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        
+        window.dailyChart = new Chart(dailyCtx, {
+            type: 'line',
+            data: {
+                labels: days,
+                datasets: [{
+                    label: currentLang === 'ar' ? 'عدد الأصوات' : 'Nombre de votes',
+                    data: [12, 19, 8, 15, 22, 10, 7],
+                    borderColor: 'rgba(200, 16, 46, 1)',
+                    backgroundColor: 'rgba(200, 16, 46, 0.1)',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
                     }
                 }
-            });
-        }
+            }
+        });
+    }
+    
+    // إضافة تصميم جديد
+    function addNewDesign() {
+        const t = translations[currentLang];
+        const designName = prompt(currentLang === 'ar' ? 'أدخل اسم التصميم الجديد:' : 'Entrez le nom du nouveau design:');
+        if (!designName) return;
         
-        // إضافة تصميم جديد
-        function addNewDesign() {
-            const designName = prompt(currentLang === 'ar' ? 'أدخل اسم التصميم الجديد:' : 'Entrez le nom du nouveau design:');
-            if (!designName) return;
-            
-            alert(currentLang === 'ar' ? 'تمت إضافة التصميم بنجاح' : 'Design ajouté avec succès');
+        alert(t.designAdded);
+    }
+    
+    // حفظ الإعدادات
+    function saveSettings() {
+        alert(translations[currentLang].settingsSaved);
+    }
+    
+    // تحديث البيانات
+    function refreshData() {
+        updateStats();
+        loadVotersData();
+        loadDesignsData();
+        alert(translations[currentLang].dataUpdated);
+    }
+    
+    // وظائف للاستخدام في HTML
+    window.viewVoter = function(index) {
+        const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
+        const vote = votes[index];
+        if (vote) {
+            const t = translations[currentLang];
+            alert(`${currentLang === 'ar' ? 'معلومات المصوت:' : 'Informations de l\'électeur:'}\n${t.thName}: ${vote.name}\n${t.thCadastral}: ${vote.cadastral}\n${t.thDate}: ${vote.date}`);
         }
-        
-        // حفظ الإعدادات
-        function saveSettings() {
-            alert(currentLang === 'ar' ? 'تم حفظ الإعدادات بنجاح' : 'Paramètres enregistrés avec succès');
-        }
-        
-        // تحديث البيانات
-        function refreshData() {
-            updateStats();
-            loadVotersData();
-            loadDesignsData();
-            alert(currentLang === 'ar' ? 'تم تحديث البيانات' : 'Données actualisées');
-        }
-        
-        // وظائف للاستخدام في HTML
-        window.viewVoter = function(index) {
+    };
+    
+    window.deleteVoter = function(index) {
+        if (confirm(translations[currentLang].confirmDeleteVoter)) {
             const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
-            const vote = votes[index];
-            if (vote) {
-                alert(`${currentLang === 'ar' ? 'معلومات المصوت:' : 'Informations de l\'électeur:'}\n${currentLang === 'ar' ? 'الاسم:' : 'Nom:'} ${vote.name}\n${currentLang === 'ar' ? 'الرقم العقاري:' : 'Numéro cadastral:'} ${vote.cadastral}\n${currentLang === 'ar' ? 'تاريخ التصويت:' : 'Date de vote:'} ${vote.date}`);
-            }
-        };
-        
-        window.deleteVoter = function(index) {
-            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا السجل؟' : 'Êtes-vous sûr de vouloir supprimer cet enregistrement?')) {
-                const votes = JSON.parse(localStorage.getItem('elwajiha_votes')) || [];
-                votes.splice(index, 1);
-                localStorage.setItem('elwajiha_votes', JSON.stringify(votes));
-                loadVotersData();
-                updateStats();
-            }
-        };
-        
-        window.editDesign = function(designId) {
-            alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
-        };
-        
-        window.deleteDesign = function(designId) {
-            if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف هذا التصميم؟' : 'Êtes-vous sûr de vouloir supprimer ce design?')) {
-                alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
-            }
-        };
-    </script>
+            votes.splice(index, 1);
+            localStorage.setItem('elwajiha_votes', JSON.stringify(votes));
+            loadVotersData();
+            updateStats();
+        }
+    };
+    
+    window.editDesign = function(designId) {
+        alert(currentLang === 'ar' ? 'ميزة التعديل قيد التطوير' : 'Fonction de modification en développement');
+    };
+    
+    window.deleteDesign = function(designId) {
+        if (confirm(translations[currentLang].confirmDeleteDesign)) {
+            alert(currentLang === 'ar' ? 'تم حذف التصميم' : 'Design supprimé');
+        }
+    };
+</script>
+
 </body>
 </html>
