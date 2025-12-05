@@ -221,6 +221,8 @@
             border-radius: var(--border-radius);
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .language-switcher {
@@ -472,8 +474,15 @@
         }
 
         .chart-title {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        /* حجم المخططات المعدل */
+        .chart-wrapper {
+            height: 200px;
+            position: relative;
         }
 
         /* تصميم متجاوب */
@@ -573,7 +582,7 @@
             </form>
             
             <div style="margin-top: 20px;">
-                <a href="index.html" class="btn btn-secondary" style="text-decoration: none;">
+                <a href="index.html" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">
                     <i class="fas fa-arrow-right"></i> <span id="back-text">العودة إلى الصفحة الرئيسية</span>
                 </a>
             </div>
@@ -746,12 +755,16 @@
             
             <div class="chart-container">
                 <h3 class="chart-title" id="votes-chart-title">توزيع الأصوات على التصاميم</h3>
-                <canvas id="votes-chart" style="width: 100%; height: 300px;"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="votes-chart"></canvas>
+                </div>
             </div>
             
             <div class="chart-container">
                 <h3 class="chart-title" id="daily-chart-title">نشاط التصويت اليومي</h3>
-                <canvas id="daily-votes-chart" style="width: 100%; height: 300px;"></canvas>
+                <div class="chart-wrapper">
+                    <canvas id="daily-votes-chart"></canvas>
+                </div>
             </div>
         </div>
         
@@ -1160,7 +1173,7 @@
             }
         });
         
-        // زر تسجيل الخروج
+        // زر تسجيل الخروج - تم التصحيح
         document.getElementById('logout-btn').addEventListener('click', function(e) {
             e.preventDefault();
             logout();
@@ -1479,9 +1492,19 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: true
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 50
+                        }
                     }
                 }
             }
@@ -1509,14 +1532,22 @@
                     borderColor: 'rgba(200, 16, 46, 1)',
                     backgroundColor: 'rgba(200, 16, 46, 0.1)',
                     borderWidth: 2,
-                    fill: true
+                    fill: true,
+                    tension: 0.4
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: true
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
